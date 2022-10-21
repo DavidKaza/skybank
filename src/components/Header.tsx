@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
   nav {
@@ -11,10 +12,18 @@ export const StyledHeader = styled.header`
       justify-content: space-between;
       align-items: center;
       list-style-type: none;
-      ul {
-        list-style-type: none;
+      div {
         display: flex;
         align-items: center;
+        a {
+          padding: 10px;
+          text-decoration: none;
+          color: #333;
+        }
+      }
+      ul {
+        list-style-type: none;
+
         li {
           a {
             padding: 10px;
@@ -57,21 +66,25 @@ const Header: React.FC = () => {
     <StyledHeader>
       <nav>
         <div className='upperNav'>
-          <div>SkyNet</div>
+          <div className='Logo'>
+            <Link to='/'>SkyNet</Link>
+          </div>
           <ul>
             {loggedInState ? (
-              <>
+              <div className='user-menu'>
                 <li>
-                  <a href='profile'>Profile</a>
+                  <Link to='profile'>Profile</Link>
                 </li>
                 <li>
                   <button onClick={handleLoginState}>Sign Out</button>
                 </li>
-              </>
+              </div>
             ) : (
-              <li>
-                <button onClick={handleLoginState}>Sign In</button>
-              </li>
+              <div className='user-menu'>
+                <li>
+                  <button onClick={handleLoginState}>Sign In</button>
+                </li>
+              </div>
             )}
           </ul>
         </div>
@@ -79,19 +92,19 @@ const Header: React.FC = () => {
         {loggedInState && (
           <ul className='lowerNav'>
             <li>
-              <a href='/accounts'>Accounts</a>
+              <Link to='/accounts'>Accounts</Link>
             </li>
             <li>
-              <a href='/payments'>Payments and Transfers</a>
+              <Link to='/payments'>Payments and Transfers</Link>
             </li>
             <li>
-              <a href='/messages'>Messages</a>
+              <Link to='/messages'>Messages</Link>
             </li>
             <li>
-              <a href='/newaccount'>Open Account</a>
+              <Link to='/newaccount'>Open Account</Link>
             </li>
             <li>
-              <a href='/accounts'>Help</a>
+              <Link to='/help'>Help</Link>
             </li>
           </ul>
         )}
