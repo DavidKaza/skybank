@@ -19,7 +19,7 @@ function App() {
           <Route path='/accounts' element={<Accounts />} />
           <Route path='/payments' element={<Payments />} />
           <Route path='/messages' element={<Messages />} />
-          <Route path='/open account' element={<OpenAccount />} />
+          <Route path='/openaccount' element={<OpenAccount />} />
         </Routes>
       </BrowserRouter>
     </div>
