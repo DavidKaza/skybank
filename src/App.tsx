@@ -6,6 +6,7 @@ import './App.css';
 import Home from './components/pages/Home';
 import Payments from './components/pages/Payments';
 import Messages from './components/pages/Messages';
+import OpenAccount from './components/pages/OpenAccount';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/accounts' element={<Accounts />} />
           <Route path='/payments' element={<Payments />} />
           <Route path='/messages' element={<Messages />} />
+          <Route path='/open account' element={<OpenAccount />} />
         </Routes>
       </BrowserRouter>
     </div>
