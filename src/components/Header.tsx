@@ -101,7 +101,7 @@ const Header: React.FC = () => {
               <Link to='/messages'>Messages</Link>
             </li>
             <li>
-              <Link to='/newaccount'>Open Account</Link>
+              <Link to='/OpenAccount'>Open Account</Link>
             </li>
             <li>
               <Link to='/help'>Help</Link>
