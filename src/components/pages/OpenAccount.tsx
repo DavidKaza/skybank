@@ -1,5 +1,5 @@
 const OpenAccount = () => {
-    return <main>OpenAccount Page</main>;
+    return <main>Open Account Page</main>;
   };
   
   export default OpenAccount;
