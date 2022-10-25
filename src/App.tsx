@@ -10,6 +10,8 @@ import OpenAccount from './components/pages/OpenAccount';
 import Profile from './components/pages/Profile';
 import Help from './components/pages/Help';
 import Footer from './components/Footer';
+import SignUp from './components/pages/SignUp';
+import SignIn from './components/pages/SignIn';
 
 function App() {
   return (
@@ -25,6 +27,8 @@ function App() {
           <Route path='/openaccount' element={<OpenAccount />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='/help' element={<Help />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/signIn' element={<SignIn />} />
         </Routes>
         <Footer />
       </BrowserRouter>

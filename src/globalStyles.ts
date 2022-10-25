@@ -1,6 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+:root{
+  --primary: #1b87ed;
+  --primaryMedium:#095296;
+  --primaryDark:#0f2157;
+}
+
 *{
     margin: 0;
     padding: 0;
