@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- So, Id attribute is to specifically select the bean
+        class attribute is how to find the class to make the bean out of
+      -->
+    <bean id="pokemonDao" class="com.revature.dao.PokemonDao"
+          init-method="customInitializationMethod"
+          destroy-method="customDestroyMethod"
+    >
+
+    </bean>
+
+    <bean id="pokemonService" class="com.revature.service.PokemonService">
+
+        <!-- Extra configuration required to explicitly say to Spring that this Pokemon Service bean also requires a Pokemon Dao bean to work -->
+        <constructor-arg ref="pokemonDao"></constructor-arg>
+    </bean>
+
+    <bean id="pokemon" class="com.revature.model.Pokemon" scope="prototype">
+        <!-- injecting primitives -->
+        <constructor-arg type="String" value="Default"></constructor-arg>
+        <constructor-arg type="int" value="5"></constructor-arg>
+        <constructor-arg type="int" value="1"></constructor-arg>
+    </bean>
+
+</beans>
