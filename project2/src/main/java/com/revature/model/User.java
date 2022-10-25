@@ -26,10 +26,14 @@ public class User {
 
     private int zipcode;
 
+    private String username;
+
+    private String password;
+
 
     public User() {}
 
-    public User(int id, String firstName, String middleInitial, String lastName, int ssn, String email, int phoneNumber, String country, String state, String city, int zipcode){
+    public User(int id, String firstName, String middleInitial, String lastName, int ssn, String email, int phoneNumber, String country, String state, String city, int zipcode, String username, String password){
         this.id = id;
         this.firstName = firstName;
         this.middleInitial = middleInitial;
@@ -41,6 +45,8 @@ public class User {
         this.state = state;
         this.city = city;
         this.zipcode = zipcode;
+        this.username = username;
+        this. password = password;
 
     }
 
@@ -132,18 +138,33 @@ public class User {
         this.zipcode = zipcode;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && ssn == user.ssn && phoneNumber == user.phoneNumber && zipcode == user.zipcode && Objects.equals(firstName, user.firstName) && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(country, user.country) && Objects.equals(state, user.state) && Objects.equals(city, user.city);
+        return id == user.id && ssn == user.ssn && phoneNumber == user.phoneNumber && zipcode == user.zipcode && Objects.equals(firstName, user.firstName) && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(country, user.country) && Objects.equals(state, user.state) && Objects.equals(city, user.city) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, middleInitial, lastName, ssn, email, phoneNumber, country, state, city, zipcode);
+        return Objects.hash(id, firstName, middleInitial, lastName, ssn, email, phoneNumber, country, state, city, zipcode, username, password);
     }
 
     @Override
@@ -160,6 +181,8 @@ public class User {
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +
                 ", zipcode=" + zipcode +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
                 '}';
     }
 }

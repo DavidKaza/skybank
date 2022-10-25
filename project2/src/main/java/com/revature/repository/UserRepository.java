@@ -1,54 +1,39 @@
 package com.revature.repository;
 
 import com.revature.model.User;
-import com.revature.model.UserLogin;
 
 import java.sql.*;
 public class UserRepository {
 
 
     //Register
-    public UserLogin addUser(User user, UserLogin userLogin) throws SQLException {
+    public User addUser(User user) throws SQLException {
 
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
-            String sql1 = "insert into users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode, username, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement pstmt1 = connectionObject.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt1.setString(1, user.getFirstName());
-            pstmt1.setString(2, user.getMiddleInitial());
-            pstmt1.setString(3, user.getLastName());
-            pstmt1.setInt(4, user.getSsn());
-            pstmt1.setString(5, user.getEmail());
-            pstmt1.setInt(6, user.getPhoneNumber());
-            pstmt1.setString(7, user.getCountry());
-            pstmt1.setString(8, user.getState());
-            pstmt1.setString(9, user.getCity());
-            pstmt1.setInt(10, user.getZipcode());
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getMiddleInitial());
+            pstmt.setString(3, user.getLastName());
+            pstmt.setInt(4, user.getSsn());
+            pstmt.setString(5, user.getEmail());
+            pstmt.setInt(6, user.getPhoneNumber());
+            pstmt.setString(7, user.getCountry());
+            pstmt.setString(8, user.getState());
+            pstmt.setString(9, user.getCity());
+            pstmt.setInt(10, user.getZipcode());
+            pstmt.setString(11, user.getUsername());
+            pstmt.setString(12, user.getPassword());
 
-            int numberOfRecordsAdded1 = pstmt1.executeUpdate(); // returns an int
+            int numberOfRecordsAdded = pstmt.executeUpdate(); // returns an int
 
-            ResultSet rs1 = pstmt1.getGeneratedKeys();
-            rs1.next();
-            int id1 = rs1.getInt(1);
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
 
-
-            String sql2 = "insert int users_login (username, password, fk_users_id) values (?, ?, ?)";
-
-            PreparedStatement pstmt2 = connectionObject.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS);
-
-            pstmt2.setString(1, userLogin.getUsername());
-            pstmt2.setString(2, userLogin.getPassword());
-            pstmt2.setInt(3, user.getId());
-
-            int numberOfRecordsAdded2 = pstmt2.executeUpdate(); // returns an int
-
-            ResultSet rs2 = pstmt2.getGeneratedKeys();
-            rs2.next();
-            int id2 = rs2.getInt(1);
-
-
-            return new UserLogin(id2, userLogin.getUsername(), userLogin.getPassword(), userLogin.getFkUsersId());
+            return new User(id, user.getFirstName(), user.getMiddleInitial(), user.getLastName(), user.getSsn(), user.getEmail(), user.getPhoneNumber(), user.getCountry(), user.getState(), user.getCity(), user.getZipcode(), user.getUsername(), user.getPassword());
         }
 
     }
@@ -56,9 +41,9 @@ public class UserRepository {
 
 
 
-    public UserLogin getUserByUsername(String username) throws SQLException{
+    public User getUserByUsername(String username) throws SQLException{
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
-            String sql = "SELECT * FROM users_login as u WHERE u.username = ?";
+            String sql = "SELECT * FROM users as u WHERE u.username = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setString(1, username);
@@ -67,12 +52,22 @@ public class UserRepository {
             // queried for
 
             if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next" row AND iterates to the next row
+
                 int id = rs.getInt("id");
+                String fn = rs.getString("first_name");
+                String mi = rs.getString("middle_initial");
+                String ln = rs.getString("last_name");
+                int ssn = rs.getInt("ssn");
+                String em = rs.getString("email");
+                int pn = rs.getInt("phone_number");
+                String ctry = rs.getString("country");
+                String st = rs.getString("state");
+                String cty = rs.getString("city");
+                int zc = rs.getInt("zipcode");
                 String un = rs.getString("username");
                 String pw = rs.getString("password");
-                int usersId = rs.getInt("fk_users_id");
 
-                return new UserLogin(id, un, pw, usersId);
+                return new User(id, fn, mi, ln, ssn, em, pn, ctry, st, cty, zc, un, pw);
             } else {
                 return null;
             }
@@ -81,7 +76,7 @@ public class UserRepository {
     }
 
     //login
-    public UserLogin getUserByUsernameAndPassword(String username, String password) throws SQLException {
+    public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             String sql = "SELECT * FROM users as u WHERE u.username = ? AND u.password = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
@@ -92,12 +87,22 @@ public class UserRepository {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
+
                 int id = rs.getInt("id");
+                String fn = rs.getString("first_name");
+                String mi = rs.getString("middle_initial");
+                String ln = rs.getString("last_name");
+                int ssn = rs.getInt("ssn");
+                String em = rs.getString("email");
+                int pn = rs.getInt("phone_number");
+                String ctry = rs.getString("country");
+                String st = rs.getString("state");
+                String cty = rs.getString("city");
+                int zc = rs.getInt("zipcode");
                 String un = rs.getString("username");
                 String pw = rs.getString("password");
-                int userId = rs.getInt("fk_users_id");
 
-                return new UserLogin(id, un, pw, userId);
+                return new User(id, fn, mi, ln, ssn, em, pn, ctry, st, cty, zc, un, pw);
             } else {
                 return null;
             }
