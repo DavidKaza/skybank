@@ -1,3 +1,11 @@
+SET search_path TO project2;
+
+drop table if exists users_login;
+drop table if exists transactions;
+drop table if exists accounts;
+drop table if exists account_type;
+drop table if exists users;
+
 create table users (
 id serial primary key not null,
 first_name varchar (50) not null,
@@ -9,7 +17,7 @@ phone_number integer not null,
 country varchar (50) not null,
 state varchar (50) not null,
 city varchar(50) not null,
-zipcode integer not null,
+zipcode integer not null
 );
 
 create table users_login (
@@ -17,8 +25,14 @@ id serial primary key not null,
 username varchar (100) not null unique,
 password varchar (100) not null,
 fk_users_id serial not null unique,
-foreign key fk_users_id references users(id)
+foreign key (fk_users_id) references users(id)
 );
+
+create table account_type(
+id serial primary key,
+type varchar (50)
+);
+insert into account_type (type) values ('Savings'), ('Checking');
 
 create table accounts (
 id serial primary key,
@@ -29,12 +43,6 @@ fk_users_id integer not null,
 foreign key (fk_account_type) references account_type(id),
 foreign key (fk_users_id) references users(id)
 );
-
-create table account_type(
-id serial primary key,
-type varchar (50)
-);
-insert into account_type (type) values ('Savings'), ('Checking');
 
 create table transactions(
 id serial primary key,
@@ -79,7 +87,4 @@ begin
 	commit;
 end;
 $$
-
-
-
 

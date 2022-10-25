@@ -9,6 +9,7 @@ import Messages from './components/pages/Messages';
 import OpenAccount from './components/pages/OpenAccount';
 import Profile from './components/pages/Profile';
 import Help from './components/pages/Help';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/help' element={<Help />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

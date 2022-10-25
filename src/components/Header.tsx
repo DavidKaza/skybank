@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const StyledHeader = styled.header`
+  background-color: #ffffffe2;
+  position: sticky;
+  top: 0;
   nav {
     color: #333;
     div.upperNav {
@@ -43,7 +46,7 @@ export const StyledHeader = styled.header`
       list-style-type: none;
       display: flex;
       justify-content: space-evenly;
-      padding: 15px;
+      padding: 10px;
       background-color: #0f2157;
       li {
         a {
