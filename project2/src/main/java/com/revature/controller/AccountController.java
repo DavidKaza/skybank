@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.model.Account;
 import com.revature.model.User;
 import com.revature.service.AccountService;
@@ -21,15 +22,50 @@ public class AccountController {
             User user = (User) httpSession.getAttribute("user");
 
             if (user != null) { // Check if logged in
-                    int fkUsersId = Integer.parseInt(ctx.pathParam("fk_users_id"));
-                    if (user.getId() == fkUsersId) {
-                        List<Account> reimbursements = accountService.getAllBalancesforUser(fkUsersId);
-                        ctx.json(reimbursements);
-                    } else {
-                        ctx.result("You are not logged in as the user you are trying to retrieve reimbursements from");
-                        ctx.status(401);
-                    }
+                int fkUsersId = Integer.parseInt(ctx.pathParam("fk_users_id"));
+                if (user.getId() == fkUsersId) {
+                    List<Account> reimbursements = accountService.getAllBalancesforUser(fkUsersId);
+                    ctx.json(reimbursements);
+                } else {
+                    ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
+                    ctx.status(401);
+                }
             } else {
+                ctx.result("You are not logged in!");
+                ctx.status(401);
+            }
+        });
+
+        //Account set up
+        app.post("/users/{userId}/accounts", (ctx) -> {
+            Account accountToAdd = ctx.bodyAsClass(Account.class);
+
+            HttpSession httpSession = ctx.req.getSession();
+
+            User user = (User) httpSession.getAttribute("user");
+
+            if (user != null) { // Check if logged in
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                if (user.getId() == userId) {
+                    try {
+                        accountToAdd.setFkUserId(user.getId());
+                        accountToAdd = accountService.addAccount(accountToAdd);
+
+
+
+                        ctx.json(accountToAdd);
+                        ctx.status(201);
+                    } catch (AmountMustBeGreaterThan0Exception e) {
+                        ctx.result(e.getMessage());
+                        ctx.status(400);
+
+                }
+
+            } else {
+                    ctx.result("You are not logged in as the user you are trying to submit an account for");
+                    ctx.status(401);
+                }
+        }  else {
                 ctx.result("You are not logged in!");
                 ctx.status(401);
             }

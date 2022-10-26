@@ -50,7 +50,7 @@ foreign key (to_account_id) references accounts(id)
 );
 
 select * from users;
-
+select * from accounts;
 
 
 
