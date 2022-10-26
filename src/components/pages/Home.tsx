@@ -26,14 +26,20 @@ const StyledMain = styled.main`
         object-fit: cover;
         border-radius: 35px;
         padding: 20px;
+        display: block;
+        margin: auto;
       }
       p {
         padding: 20px;
         line-height: 1.5rem;
+        margin: 0;
         span {
           display: inline-block;
         }
       }
+    }
+    h4 {
+      margin: 0;
     }
     @media screen and (max-width: 1600px) {
       grid-template-columns: 1fr 1fr;
@@ -62,7 +68,7 @@ const Home = () => {
       <section>
         <div className='showcase'>
           <div>
-            <h3>Apply for a Skybank Credit Card Today</h3>
+            <h4>Apply for a Skybank Credit Card Today</h4>
             <img src={image1} alt='random stock'></img>
             <p>
               Getting started is east. Checking eligibilty wont impact your
@@ -71,7 +77,7 @@ const Home = () => {
             <Button>Learn More</Button>
           </div>
           <div>
-            <h3>Choose the right Skynet Credit Card for You</h3>
+            <h4>Choose the right Skynet Credit Card for You</h4>
             <img src={image2} alt='random stock'></img>
             <p>
               Explore SkyBank's credit card offers, featuring exclusive perks
@@ -80,7 +86,7 @@ const Home = () => {
             <Button>Learn More</Button>
           </div>
           <div>
-            <h3>Save with CD rates over 3.00% APY</h3>
+            <h4>Save with CD rates over 3.00% APY</h4>
             <img src={image3} alt='random stock'></img>
             <p>
               Open a fixed-rate CD & enjoy the peace and mind that comses with a

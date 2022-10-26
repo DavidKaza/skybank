@@ -8,7 +8,8 @@ const StyledButton = styled.button`
   border-radius: 15px;
   font-size: 1.5rem;
   color: #fff;
-  margin: 10px;
+  margin: 10px auto;
+  display: block;
   &:hover {
     background-color: var(--primaryMedium);
   }

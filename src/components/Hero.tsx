@@ -3,19 +3,23 @@ import styled from 'styled-components';
 import Button from './Button';
 import Form from './Form';
 const StyledDiv = styled.div`
-  max-height: 400px;
+  max-height: 800px;
   background-color: var(--primary);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   justify-items: center;
   justify-content: center;
-  padding: 20px;
+  margin: 0;
   h1 {
     font-size: 5rem;
+    margin: 0;
+    padding: 0;
   }
   h2 {
     font-size: 2.5rem;
+    margin: 0;
+    padding: 0;
   }
   h3 {
     font-size: 2rem;
@@ -25,14 +29,11 @@ const StyledDiv = styled.div`
   }
   p {
     padding: 20px;
+    margin: 0;
   }
   .login {
-    padding: 5px 20px;
-    border-radius: 15px;
     font-size: 1.5rem;
     color: #fff;
-    background-color: var(--primaryDark);
-    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -49,9 +50,10 @@ const StyledDiv = styled.div`
   }
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
-    max-height: 500px;
+    max-height: 600px;
     .login {
       height: 100%;
+      width: 100%;
     }
   }
 `;

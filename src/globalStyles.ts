@@ -17,7 +17,8 @@ const GlobalStyle = createGlobalStyle`
     font-size:16px;
   }
   h1,h2,h3,h4,h5,h6{
-    padding:10px;
+    padding:10px 0;
+    text-align:center;
   }
   main{
     min-height:calc(100vh - 200px);
