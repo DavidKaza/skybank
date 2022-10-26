@@ -3,7 +3,6 @@ import { StyledHeader } from "../Header";
 const Profile = () => {
     return (
       <main>
-        <StyledHeader />
       <div>
         <h3>
           Profile Page

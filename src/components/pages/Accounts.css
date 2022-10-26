@@ -1,0 +1,31 @@
+.account-name {
+    font-size: 15px;
+}
+
+.balance {
+    font-size: 12px;
+    position: relative;
+    top: 20px;
+    right: 110px;
+}
+
+.balance-amount {
+    font-size: 12px;
+    position: relative;
+    top: 20px;
+    right: 90px;
+}
+
+.transactions {
+    font-size: 20px;
+    position: relative;
+    width: 175px;
+}
+
+.transactions-add {
+    color: green;
+}
+
+.transactions-subtract {
+    color: red;  
+}
