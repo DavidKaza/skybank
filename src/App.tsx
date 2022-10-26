@@ -2,7 +2,6 @@ import Header from './components/Header';
 import GlobalStyle from './globalStyles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Accounts from './components/pages/Accounts';
-import './App.css';
 import Home from './components/pages/Home';
 import Payments from './components/pages/Payments';
 import Messages from './components/pages/Messages';
