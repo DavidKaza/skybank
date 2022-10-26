@@ -30,11 +30,24 @@ interface Props {
   action?: string;
   className?: string;
   method?: string;
-  onSubmit?: (event: React.FormEvent) => void;
+  onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
 const Form = (props: Props) => {
-  return <StyledForm>{props.children}</StyledForm>;
+  function defaultOnSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+  }
+
+  return (
+    <StyledForm
+      action={props.action ? props.action : ''}
+      className={props.className ? props.className : ''}
+      method={props.method ? props.method : ''}
+      onSubmit={props.onSubmit ? props.onSubmit : defaultOnSubmit}
+    >
+      {props.children}
+    </StyledForm>
+  );
 };
 
 export default Form;
