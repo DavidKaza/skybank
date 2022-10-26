@@ -1,7 +1,6 @@
 drop table if exists transactions;
 drop table if exists accounts;
 drop table if exists account_type;
-drop table if exists users_login;
 drop table if exists users;
 
 create table users (
@@ -15,16 +14,11 @@ phone_number integer not null,
 country varchar (50) not null,
 state varchar (50) not null,
 city varchar(50) not null,
-zipcode integer not null
+zipcode integer not null,
+username varchar (100) not null unique,
+password varchar (100) not null
 );
 
-create table users_login (
-id serial primary key not null,
-username varchar (100) not null unique,
-password varchar (100) not null,
-fk_users_id serial not null unique,
-foreign key (fk_users_id) references users(id)
-);
 
 create table account_type(
 id serial primary key,
@@ -54,6 +48,11 @@ note varchar (500),
 foreign key (from_account_id) references accounts(id),
 foreign key (to_account_id) references accounts(id)
 );
+
+select * from users;
+
+
+
 
 ------------------Functions, Queries, and Procedures-------------------
 
