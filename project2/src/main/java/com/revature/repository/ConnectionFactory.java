@@ -13,7 +13,7 @@ public class ConnectionFactory {
         Driver postgresDriver = new Driver();
         DriverManager.registerDriver(postgresDriver);
 
-        String url = "jdbc:postgresql://127.0.0.1:5432/postgres";
+        String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=schema";
         String username = System.getenv("database_username");
         String password = System.getenv("database_password");
 

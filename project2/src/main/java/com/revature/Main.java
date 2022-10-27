@@ -1,6 +1,5 @@
 package com.revature;
 
-import com.revature.controller.AccountController;
 import com.revature.controller.AuthController;
 import io.javalin.Javalin;
 
@@ -17,9 +16,6 @@ public class Main {
         AuthController ac = new AuthController();
         ac.mapEndpoints(app);
 
-        AccountController accountController = new AccountController();
-        accountController.mapEndpoints(app);
-
-        app.start(8080);
+        app.start(8070);
     }
 }
