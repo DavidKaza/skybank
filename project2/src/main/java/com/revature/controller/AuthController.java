@@ -35,7 +35,7 @@ public class AuthController {
             User user = (User) session.getAttribute("user");
 
             ctx.req.getSession().invalidate(); // delete cookie
-            ctx.result("Goodbye" + " " + user.getUsername());
+            ctx.result("Goodbye" + " " + user.getFirstName());
         });
 
         //register

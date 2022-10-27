@@ -2,16 +2,13 @@ package com.revature.repository;
 
 import com.revature.model.Account;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AccountRepository {
 
-    //list all of your (employee) reimbursements
+    //list all of your balances
     public List<Account> getAllBalancesforUser(int fkUserId) throws SQLException {
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
 
@@ -38,6 +35,29 @@ public class AccountRepository {
             }
 
             return accounts;
+        }
+    }
+
+    //accounts request sent by employee
+    public Account addAccount(Account accounts) throws SQLException {
+
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+            String sql = "insert into accounts (balance, nickname, fk_account_type, fk_users_id) values (?, ?, ?, ?)";
+
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setInt(1, accounts.getBalance());
+            pstmt.setString(2, accounts.getNickname());
+            pstmt.setInt(3, accounts.getFkAccountType());
+            pstmt.setInt(4, accounts.getFkUserId());
+
+            int numberOfRecordsAdded = pstmt.executeUpdate();
+
+            ResultSet rs = pstmt.getGeneratedKeys();
+            rs.next();
+            int id = rs.getInt(1);
+
+            return new Account(id, accounts.getBalance(), accounts.getNickname(), accounts.getFkAccountType(), accounts.getFkUserId());
         }
     }
 }
