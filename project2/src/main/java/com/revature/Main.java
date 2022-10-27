@@ -2,6 +2,7 @@ package com.revature;
 
 import com.revature.controller.AccountController;
 import com.revature.controller.AuthController;
+import com.revature.controller.TransactionController;
 import io.javalin.Javalin;
 
 public class Main {
@@ -19,6 +20,9 @@ public class Main {
 
         AccountController accountController = new AccountController();
         accountController.mapEndpoints(app);
+
+        TransactionController transactionController = new TransactionController();
+        transactionController.mapEndpoints(app);
 
         app.start(8080);
     }

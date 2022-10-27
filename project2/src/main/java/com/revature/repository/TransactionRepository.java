@@ -15,7 +15,8 @@ public class TransactionRepository {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             // Setup procedure to call.
             Statement stmt = connectionObj.createStatement();
-            stmt.execute("CREATE OR REPLACE PROCEDURE transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))" +
+            //create or replace
+            stmt.execute("drop procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))" +
                     " language plpgsql " +
                     " as $$ " +
                     " declare pre_transaction numeric;" +

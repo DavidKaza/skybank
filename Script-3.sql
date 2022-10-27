@@ -58,11 +58,12 @@ select * from accounts;
 
 ------------------Functions, Queries, and Procedures-------------------
 --To transfer money between accounts
-create or replace procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+--create or replace
+drop procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
 language plpgsql
 as $$
 declare pre_transaction numeric;
-declare receiving_person accounts%rowtype;
+declare receiving_person integer; --accounts%rowtype
 begin
 	select balance from accounts into pre_transaction where id = sending_acc;
 	select id from accounts into receiving_person where id = receiving_acc;

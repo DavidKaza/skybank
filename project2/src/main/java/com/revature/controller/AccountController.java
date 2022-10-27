@@ -27,8 +27,8 @@ public class AccountController {
 
                 int userId = Integer.parseInt(ctx.pathParam("userId"));
                 if (user.getId() == userId) {
-                    List<Account> reimbursements = accountService.getAllBalancesforUser(userId);
-                    ctx.json(reimbursements);
+                    List<Account> accounts = accountService.getAllBalancesforUser(userId);
+                    ctx.json(accounts);
                 } else {
                     ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
                     ctx.status(401);
