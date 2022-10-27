@@ -15,6 +15,8 @@ public class AccountController {
     private AccountService accountService = new AccountService();
 
     public void mapEndpoints(Javalin app) {
+
+
         // Endpoint is for user to view own account balance
         app.get("/users/{userId}/balance", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();
@@ -22,9 +24,10 @@ public class AccountController {
             User user = (User) httpSession.getAttribute("user");
 
             if (user != null) { // Check if logged in
-                int fkUsersId = Integer.parseInt(ctx.pathParam("fk_users_id"));
-                if (user.getId() == fkUsersId) {
-                    List<Account> reimbursements = accountService.getAllBalancesforUser(fkUsersId);
+
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                if (user.getId() == userId) {
+                    List<Account> reimbursements = accountService.getAllBalancesforUser(userId);
                     ctx.json(reimbursements);
                 } else {
                     ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
