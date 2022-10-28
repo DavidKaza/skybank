@@ -59,7 +59,9 @@ select * from accounts;
 ------------------Functions, Queries, and Procedures-------------------
 --To transfer money between accounts
 --create or replace
-drop procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+
+create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
 language plpgsql
 as $$
 declare pre_transaction numeric;
@@ -78,10 +80,6 @@ begin
 	commit;
 end;
 $$
-
-
-
-
 
 
 --To see all accounts, their type, and their balances for a customer

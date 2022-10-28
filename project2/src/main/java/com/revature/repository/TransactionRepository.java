@@ -16,7 +16,9 @@ public class TransactionRepository {
             // Setup procedure to call.
             Statement stmt = connectionObj.createStatement();
             //create or replace
-            stmt.execute("drop procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))" +
+            stmt.execute("drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))");
+
+            stmt.execute("create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))" +
                     " language plpgsql " +
                     " as $$ " +
                     " declare pre_transaction numeric;" +
@@ -30,11 +32,11 @@ public class TransactionRepository {
                     "       else " +
                     "           update accounts set balance = balance - amount where id = sender_acc;" +
                     "           update accounts set balance = balance + amount where id = receiving_acc;" +
-                    "           insert into transactions (date, from_account_id, to_account_id, total_amount, note) values (current_timestamp, sending_acc, receiving_account, amount, message)" +
-                    "   end if;" +
-                    "   commit; " +
-                    " end; " +
-                    " $$ ");
+                    "           insert into transactions (date, from_account_id, to_account_id, total_amount, note) values (current_timestamp, sending_acc, receiving_account, amount, message);" +
+                    "    end if;" +
+                    "    commit;" +
+                    " end;" +
+                    " $$");
             stmt.close();
 
 // As of v11, we must be outside a transaction for procedures with transactions to work.
