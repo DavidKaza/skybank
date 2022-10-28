@@ -72,6 +72,40 @@ public class UserRepository {
         }
     }
 
+    public User getUserBySsn(String ssn) throws SQLException{
+        try (Connection connectionObj = ConnectionFactory.createConnection()) {
+            String sql = "SELECT * FROM project2.users as u WHERE u.ssn = ?";
+            PreparedStatement pstmt = connectionObj.prepareStatement(sql);
+
+            pstmt.setString(1, ssn);
+
+            ResultSet rs = pstmt.executeQuery(); // ResultSet represents a temporary table that contains all data that we have
+            // queried for
+
+            if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next" row AND iterates to the next row
+
+                int id = rs.getInt("id");
+                String fn = rs.getString("first_name");
+                String mi = rs.getString("middle_initial");
+                String ln = rs.getString("last_name");
+                String ssn1 = rs.getString("ssn");
+                String em = rs.getString("email");
+                String pn = rs.getString("phone_number");
+                String ctry = rs.getString("country");
+                String st = rs.getString("state");
+                String cty = rs.getString("city");
+                String zc = rs.getString("zipcode");
+                String un = rs.getString("username");
+                String pw = rs.getString("password");
+
+                return new User(id, fn, mi, ln, ssn1, em, pn, ctry, st, cty, zc, un, pw);
+            } else {
+                return null;
+            }
+
+        }
+    }
+
     //login
     public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {

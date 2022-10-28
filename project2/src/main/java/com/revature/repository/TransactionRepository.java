@@ -3,6 +3,7 @@ package com.revature.repository;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
+import com.revature.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -81,6 +82,29 @@ public class TransactionRepository {
             }
 
             return transactions;
+        }
+    }
+
+    public Account getAccountById(int username) throws SQLException {
+        try (Connection connectionObj = ConnectionFactory.createConnection()) {
+            String sql = "SELECT * FROM accounts as a WHERE a.id = ?";
+            PreparedStatement pstmt = connectionObj.prepareStatement(sql);
+
+            pstmt.setInt(1, username);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                int id = rs.getInt("id");
+                int b = rs.getInt("balance");
+                String n = rs.getString("nickname");
+                int at = rs.getInt("fk_account_type");
+                int ui = rs.getInt("fk_user_id");
+
+                return new Account(id, b, n, at, ui);
+            } else {
+                return null;
+            }
         }
     }
 
