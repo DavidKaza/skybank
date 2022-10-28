@@ -1,18 +1,24 @@
 package com.revature.repository;
 
-import com.revature.model.User;
+import com.revature.model.Account;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 public class UserRepository {
 
+    public ArrayList getAccounts() throws SQLException {
+        try (Connection co = ConnectionFactory.createConnection()) {
+            String sql = "select balance, nickname from accounts join users on users.id = accounts.fk_users_id where users.id = 3";
+            PreparedStatement pst = co.prepareStatement(sql);
 
-    //Register
-    public User addUser(User user) throws SQLException {
+            ResultSet rs = pst.executeQuery();
 
-        try (Connection connectionObject = ConnectionFactory.createConnection()) {
-            String sql = "insert into users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode, username, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            ArrayList accounts = new ArrayList<Account>();
 
-            PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            while (rs.next()) {
+                float b = rs.getFloat(1);
+                String n = rs.getString(2);
 
             pstmt.setString(1, user.getFirstName());
             pstmt.setString(2, user.getMiddleInitial());

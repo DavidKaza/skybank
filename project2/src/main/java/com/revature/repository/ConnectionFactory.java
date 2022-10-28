@@ -15,7 +15,7 @@ public class ConnectionFactory {
         DriverManager.registerDriver(postgresDriver);
         Properties props = new Properties();
 
-        String url = "jdbc:postgresql://127.0.0.1:5432/postgres";
+        String url = "jdbc:postgresql://127.0.0.1:5432/postgres?currentSchema=schema";
         String username = System.getenv("database_username");
         String password = System.getenv("database_password");
         props.setProperty("escapeSyntaxCallMode", "callIfNoReturn");
