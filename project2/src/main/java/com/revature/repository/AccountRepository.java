@@ -14,7 +14,7 @@ public class AccountRepository {
 
             List<Account> accounts = new ArrayList<>();
 
-            String sql = "SELECT * FROM accounts WHERE fk_users_is =?";
+            String sql = "SELECT * FROM accounts WHERE fk_users_id =?";
 
             PreparedStatement pstmt = connectionObject.prepareStatement(sql);
 
