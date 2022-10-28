@@ -6,7 +6,7 @@ drop table if exists users;
 create table project2.users (
 id serial primary key not null,
 first_name varchar (50) not null,
-middle_initial varchar (2) not null,
+middle_initial varchar (2),
 last_name varchar (50) not null,
 ssn varchar(15) not null unique,
 email varchar(50) not null,

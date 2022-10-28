@@ -13,15 +13,50 @@ const StyledForm = styled.form`
   margin: 20px auto;
   background-color: #fff;
   color: var(--primaryDark);
-  input {
+  input,
+  select {
     font-size: 1.2rem;
     border-radius: 10px;
+    border: none;
+    box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.2);
     margin: 5px;
     padding: 5px;
     width: 350px;
   }
   label {
     padding: 15px 0px 8px 0px;
+  }
+  &.grid-2col {
+    font-size: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    max-width: 900px;
+    @media screen and (max-width: 900px) {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+    label {
+      display: block;
+      padding: 5px 0px 2px 0px;
+    }
+    input,
+    select {
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      box-shadow: inset 2px 2px 10px rgba(0, 0, 0, 0.2);
+      margin: 5px;
+      padding: 5px;
+      width: 300px;
+    }
+    .span2 {
+      grid-column: span 2;
+      margin: auto;
+      display: block;
+    }
+    button {
+      grid-column: span 2;
+    }
   }
 `;
 
@@ -33,7 +68,7 @@ interface Props {
   onSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const Form = (props: Props) => {
+const Form: React.FC<Props> = (props) => {
   function defaultOnSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
   }
