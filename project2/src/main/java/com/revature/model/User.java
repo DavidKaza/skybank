@@ -12,11 +12,11 @@ public class User {
 
     private String lastName;
 
-    private int ssn;
+    private String ssn;
 
     private String email;
 
-    private int phoneNumber;
+    private String phoneNumber;
 
     private String country;
 
@@ -24,7 +24,7 @@ public class User {
 
     private String city;
 
-    private int zipcode;
+    private String zipcode;
 
     private String username;
 
@@ -33,7 +33,7 @@ public class User {
 
     public User() {}
 
-    public User(int id, String firstName, String middleInitial, String lastName, int ssn, String email, int phoneNumber, String country, String state, String city, int zipcode, String username, String password){
+    public User(int id, String firstName, String middleInitial, String lastName, String ssn, String email, String phoneNumber, String country, String state, String city, String zipcode, String username, String password){
         this.id = id;
         this.firstName = firstName;
         this.middleInitial = middleInitial;
@@ -82,11 +82,11 @@ public class User {
         this.lastName = lastName;
     }
 
-    public int getSsn() {
+    public String getSsn() {
         return ssn;
     }
 
-    public void setSsn(int ssn) {
+    public void setSsn(String ssn) {
         this.ssn = ssn;
     }
 
@@ -98,11 +98,11 @@ public class User {
         this.email = email;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -130,11 +130,11 @@ public class User {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public String getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
 
@@ -159,7 +159,7 @@ public class User {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && ssn == user.ssn && phoneNumber == user.phoneNumber && zipcode == user.zipcode && Objects.equals(firstName, user.firstName) && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName) && Objects.equals(email, user.email) && Objects.equals(country, user.country) && Objects.equals(state, user.state) && Objects.equals(city, user.city) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName) && Objects.equals(ssn, user.ssn) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(country, user.country) && Objects.equals(state, user.state) && Objects.equals(city, user.city) && Objects.equals(zipcode, user.zipcode) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
     }
 
     @Override
@@ -174,13 +174,13 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", middleInitial='" + middleInitial + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", ssn=" + ssn +
+                ", ssn='" + ssn + '\'' +
                 ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", country='" + country + '\'' +
                 ", state='" + state + '\'' +
                 ", city='" + city + '\'' +
-                ", zipcode=" + zipcode +
+                ", zipcode='" + zipcode + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';

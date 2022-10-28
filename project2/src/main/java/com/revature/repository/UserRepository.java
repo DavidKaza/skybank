@@ -17,13 +17,13 @@ public class UserRepository {
             pstmt.setString(1, user.getFirstName());
             pstmt.setString(2, user.getMiddleInitial());
             pstmt.setString(3, user.getLastName());
-            pstmt.setInt(4, user.getSsn());
+            pstmt.setString(4, user.getSsn());
             pstmt.setString(5, user.getEmail());
-            pstmt.setInt(6, user.getPhoneNumber());
+            pstmt.setString(6, user.getPhoneNumber());
             pstmt.setString(7, user.getCountry());
             pstmt.setString(8, user.getState());
             pstmt.setString(9, user.getCity());
-            pstmt.setInt(10, user.getZipcode());
+            pstmt.setString(10, user.getZipcode());
             pstmt.setString(11, user.getUsername());
             pstmt.setString(12, user.getPassword());
 
@@ -57,13 +57,13 @@ public class UserRepository {
                 String fn = rs.getString("first_name");
                 String mi = rs.getString("middle_initial");
                 String ln = rs.getString("last_name");
-                int ssn = rs.getInt("ssn");
+                String ssn = rs.getString("ssn");
                 String em = rs.getString("email");
-                int pn = rs.getInt("phone_number");
+                String pn = rs.getString("phone_number");
                 String ctry = rs.getString("country");
                 String st = rs.getString("state");
                 String cty = rs.getString("city");
-                int zc = rs.getInt("zipcode");
+                String zc = rs.getString("zipcode");
                 String un = rs.getString("username");
                 String pw = rs.getString("password");
 
@@ -92,13 +92,13 @@ public class UserRepository {
                 String fn = rs.getString("first_name");
                 String mi = rs.getString("middle_initial");
                 String ln = rs.getString("last_name");
-                int ssn = rs.getInt("ssn");
+                String ssn = rs.getString("ssn");
                 String em = rs.getString("email");
-                int pn = rs.getInt("phone_number");
+                String pn = rs.getString("phone_number");
                 String ctry = rs.getString("country");
                 String st = rs.getString("state");
                 String cty = rs.getString("city");
-                int zc = rs.getInt("zipcode");
+                String zc = rs.getString("zipcode");
                 String un = rs.getString("username");
                 String pw = rs.getString("password");
 
