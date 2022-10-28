@@ -9,11 +9,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        Javalin app = Javalin.create(config -> {
-//            config.enableCorsForAllOrigins();
-//        });
+        Javalin app = Javalin.create(config -> {
+            config.enableCorsForAllOrigins();
+        });
 
-        Javalin app = Javalin.create();
+
 
         AuthController ac = new AuthController();
         ac.mapEndpoints(app);
