@@ -3,29 +3,29 @@ drop table if exists accounts;
 drop table if exists account_type;
 drop table if exists users;
 
-create table users (
+create table project2.users (
 id serial primary key not null,
 first_name varchar (50) not null,
 middle_initial varchar (2) not null,
 last_name varchar (50) not null,
-ssn integer not null unique,
+ssn varchar(15) not null unique,
 email varchar(50) not null,
-phone_number integer not null,
+phone_number varchar(15) not null,
 country varchar (50) not null,
 state varchar (50) not null,
 city varchar(50) not null,
-zipcode integer not null,
+zipcode varchar(15) not null,
 username varchar (100) not null unique,
 password varchar (100) not null
 );
 
 
-create table account_type(
+create table project2.account_type(
 id serial primary key,
 type varchar (50)
 );
 
-create table accounts (
+create table project2.accounts (
 id serial primary key,
 balance numeric,
 nickname varchar(50),
@@ -38,7 +38,7 @@ foreign key (fk_users_id) references users(id)
 
 insert into account_type (type) values ('Savings'), ('Checking'), ('Credit');
 
-create table transactions(
+create table project2.transactions(
 id serial primary key,
 date timestamp not null,
 from_account_id integer not null,

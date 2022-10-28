@@ -46,7 +46,7 @@ public class AccountRepository {
 
             PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setInt(1, accounts.getBalance());
+            pstmt.setFloat(1, accounts.getBalance());
             pstmt.setString(2, accounts.getNickname());
             pstmt.setInt(3, accounts.getFkAccountType());
             pstmt.setInt(4, accounts.getFkUserId());
