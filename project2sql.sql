@@ -1,12 +1,14 @@
+set search_path to project2;
+
 drop table if exists transactions;
 drop table if exists accounts;
 drop table if exists account_type;
 drop table if exists users;
 
-create table project2.users (
+create table users (
 id serial primary key not null,
 first_name varchar (50) not null,
-middle_initial varchar (2) not null,
+middle_initial varchar (2),
 last_name varchar (50) not null,
 ssn varchar(15) not null unique,
 email varchar(50) not null,
@@ -20,12 +22,12 @@ password varchar (100) not null
 );
 
 
-create table project2.account_type(
+create table account_type(
 id serial primary key,
 type varchar (50)
 );
 
-create table project2.accounts (
+create table accounts (
 id serial primary key,
 balance numeric,
 nickname varchar(50),
@@ -38,7 +40,7 @@ foreign key (fk_users_id) references users(id)
 
 insert into account_type (type) values ('Savings'), ('Checking'), ('Credit');
 
-create table project2.transactions(
+create table transactions (
 id serial primary key,
 date timestamp not null,
 from_account_id integer not null,
@@ -46,24 +48,26 @@ to_account_id integer not null,
 total_amount numeric not null,
 note varchar (500),
 foreign key (from_account_id) references accounts(id),
-foreign key (to_account_id) references accounts(id),
+foreign key (to_account_id) references accounts(id)
 );
+
+
 
 select * from users;
 select * from accounts;
-
+select * from transactions;
 
 
 ------------------Functions, Queries, and Procedures-------------------
 --To transfer money between accounts
 --create or replace
-drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500));
 
 create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
 language plpgsql
 as $$
 declare pre_transaction numeric;
-declare receiving_person integer; --accounts%rowtype
+declare receiving_person integer; 
 begin
 	select balance from accounts into pre_transaction where id = sending_acc;
 	select id from accounts into receiving_person where id = receiving_acc;
@@ -77,7 +81,7 @@ begin
 	end if;
 	commit;
 end;
-$$
+$$;
 
 
 
