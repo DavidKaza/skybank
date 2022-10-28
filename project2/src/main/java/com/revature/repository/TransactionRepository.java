@@ -1,12 +1,12 @@
 package com.revature.repository;
 
+import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TransactionRepository {
 
@@ -52,4 +52,36 @@ public class TransactionRepository {
             transfer.close();
         }
     }
+
+    //list all of your transactions
+    public List<Transaction> getAllTransactionsForUser(int fromAccountId) throws SQLException {
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+
+            List<Transaction> transactions = new ArrayList<>();
+
+            String sql = "SELECT * FROM transactions WHERE from_account_id = ?";
+
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql);
+
+            pstmt.setInt(1, fromAccountId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                Timestamp time = rs.getTimestamp("date");
+                int fromAccountId1 = rs.getInt("from_account_id");
+                int toAccountId = rs.getInt("to_account_id");
+                int totalAmount = rs.getInt("total_amount");
+                String note = rs.getString("note");
+
+                Transaction transaction = new Transaction(id, time, fromAccountId1, toAccountId, totalAmount, note);
+
+                transactions.add(transaction);
+            }
+
+            return transactions;
+        }
+    }
+
 }
