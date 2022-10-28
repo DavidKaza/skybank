@@ -1,29 +1,19 @@
 package com.revature.repository;
 
-import com.revature.model.Account;
+import com.revature.model.User;
 
 import java.sql.*;
-import java.util.ArrayList;
-
 public class UserRepository {
 
-    public ArrayList getAccounts() throws SQLException {
-        try (Connection co = ConnectionFactory.createConnection()) {
-            String sql = "select balance, nickname from accounts join users on users.id = accounts.fk_users_id where users.id = 3";
-            PreparedStatement pst = co.prepareStatement(sql);
 
-            ResultSet rs = pst.executeQuery();
+    //Register
+    public User addUser(User user) throws SQLException {
 
-            ArrayList accounts = new ArrayList<Account>();
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+            String sql = "insert into users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode, username, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            while (rs.next()) {
-                float b = rs.getFloat(1);
-                String n = rs.getString(2);
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-<<<<<<< HEAD
-                Account ac = new Account(b,n);
-                accounts.add(ac);
-=======
             pstmt.setString(1, user.getFirstName());
             pstmt.setString(2, user.getMiddleInitial());
             pstmt.setString(3, user.getLastName());
@@ -115,9 +105,7 @@ public class UserRepository {
                 return new User(id, fn, mi, ln, ssn, em, pn, ctry, st, cty, zc, un, pw);
             } else {
                 return null;
->>>>>>> b27fa654c9abbd2c199541bb9c7675594b164c62
             }
-            return accounts;
         }
     }
 }
