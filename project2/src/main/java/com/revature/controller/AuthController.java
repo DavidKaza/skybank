@@ -23,7 +23,7 @@ public class AuthController {
                 HttpSession session = ctx.req.getSession(); // the cookie
                 session.setAttribute("user", user);
 
-                ctx.result("welcome" + " " + user.getFirstName());
+                ctx.json(user);
             } catch (InvalidLoginException e){
                 ctx.status(400);
                 ctx.result(e.getMessage());

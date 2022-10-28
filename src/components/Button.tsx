@@ -25,10 +25,15 @@ const StyledButton = styled.button`
 
 interface Props {
   readonly children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
 const Button = (props: Props) => {
-  return <StyledButton>{props.children}</StyledButton>;
+  return props.onClick ? (
+    <StyledButton onClick={props.onClick}>{props.children}</StyledButton>
+  ) : (
+    <StyledButton>{props.children}</StyledButton>
+  );
 };
 
 export default Button;
