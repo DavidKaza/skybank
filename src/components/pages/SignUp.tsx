@@ -22,6 +22,16 @@ const StyledMain = styled.main`
     align-items: center;
     justify-content: center;
   }
+  .accountNumber-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    p {
+      font-size: 0.9rem;
+      padding: 3px;
+    }
+  }
 `;
 
 const SignUp = () => {
@@ -35,15 +45,22 @@ const SignUp = () => {
           below to get started.
         </p>
         <Form>
-          <label htmlFor='accountNumber'>Account Number</label>
-          <input id='accountNumber' type='text' />
+          <div className='accountNumber-group'>
+            <label htmlFor='accountNumber'>Account Number</label>
+            <p>
+              No account with us? <Link to='/openaccount'>Create one.</Link>
+            </p>
+
+            <input id='accountNumber' type='text' />
+          </div>
           <label htmlFor='ssn'>
-            Social Security Number (SSN) or Tax ID Number (TIN)
+            <span title='Social Security Number'>SSN</span> or{' '}
+            <span title='Tax ID Number'>TIN</span>
           </label>
           <input id='ssn' type='text' />
           <Button>Next</Button>
           <p>Already enrolled?</p>
-          <Link to='/signin'>Signup In</Link>
+          <Link to='/signin'>Sign In</Link>
         </Form>
       </section>
     </StyledMain>

@@ -18,6 +18,7 @@ public class TransactionController {
 
 
         // Endpoint is for user to "request" transaction
+        app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
         app.post("/users/{userId}/transactions", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();
 

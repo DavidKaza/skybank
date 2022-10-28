@@ -2,8 +2,8 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppSelector } from '../../shared/hooks';
-import { selectUser } from '../../shared/UserSlicer';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { selectUser, setUser } from '../../shared/UserSlicer';
 import Button from '../Button';
 import Form from '../Form';
 
@@ -31,9 +31,9 @@ const StyledMain = styled.main`
 
 const OpenAccount = () => {
   const [accountData, setAccountData] = useState({
-    accountType: '',
+    fkAccountType: 1,
     nickname: '',
-    initialDeposit: '',
+    balance: '',
   });
 
   const [userData, setUserData] = useState({
@@ -53,18 +53,56 @@ const OpenAccount = () => {
   });
 
   let navigateProfile = useNavigate();
+
   const user = useAppSelector(selectUser);
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
+
+  const dispatch = useAppDispatch();
+
+  function onSubmitLoggedIn(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
-      .post(`http://localhost:8080/users/${user.id}/accounts`, {
-        accountType: accountData.accountType,
-        nickname: accountData.nickname,
-        initialDeposit: accountData.initialDeposit,
-      })
+      .post(
+        `http://localhost:8080/users/${user.id}/accounts`,
+        {
+          fkAccountType: accountData.fkAccountType,
+          nickname: accountData.nickname,
+          balance: accountData.balance,
+        },
+        { withCredentials: true }
+      )
       .then((resp) => {
         console.log(resp.data);
         navigateProfile('/Profile');
+      });
+  }
+  function onSubmitNewUser(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (userData.password !== userData.confirmPassword) {
+      alert('Password mismatch');
+      return;
+    }
+    axios
+      .post(
+        `http://localhost:8080/register`,
+        {
+          firstName: userData.firstName,
+          middleInitial: userData.middleInitial,
+          lastName: userData.lastName,
+          ssn: userData.ssn,
+          email: userData.email,
+          phoneNumber: userData.phoneNumber,
+          country: userData.country,
+          state: userData.state,
+          city: userData.city,
+          zipcode: userData.zipcode,
+          username: userData.username,
+          password: userData.password,
+        },
+        { withCredentials: true }
+      )
+      .then((resp) => {
+        dispatch(setUser(resp.data));
+        console.log(resp.data);
       });
   }
   function handleAccountInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -100,11 +138,15 @@ const OpenAccount = () => {
           <p>Joining SkyBank is as easy as filling out the form below.</p>
         )}
         {user.id ? (
-          <Form method='post' onSubmit={onSubmit}>
+          <Form method='post' onSubmit={onSubmitLoggedIn}>
             <label htmlFor='accountType'>Account Type</label>
-            <select onChange={handleSelectChange} name='accountType'>
-              <option value='checking'>Checking</option>
-              <option value='saving'>Saving</option>
+            <select
+              value={accountData.fkAccountType}
+              onChange={handleSelectChange}
+              name='fkAccountType'
+            >
+              <option value='1'>Checking</option>
+              <option value='2'>Saving</option>
             </select>
             <label htmlFor='nickname'>Nickname</label>
             <input
@@ -114,11 +156,11 @@ const OpenAccount = () => {
               type='text'
               onChange={handleAccountInputChange}
             ></input>
-            <label htmlFor='initialDeposit'>Initial deposit</label>
+            <label htmlFor='balance'>Initial deposit</label>
             <input
-              id='initialDeposit'
-              value={accountData.initialDeposit}
-              name='initialDeposit'
+              id='balance'
+              value={accountData.balance}
+              name='balance'
               type='number'
               onChange={handleAccountInputChange}
             ></input>
@@ -130,12 +172,13 @@ const OpenAccount = () => {
             <Button>{!user.id ? 'Next' : 'Create'}</Button>
           </Form>
         ) : (
-          <Form className='grid-2col'>
+          <Form className='grid-2col' onSubmit={onSubmitNewUser}>
             <div>
               <label htmlFor='firstName'>First Name</label>
               <input
                 value={userData.firstName}
                 id='firstName'
+                name='firstName'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -145,6 +188,7 @@ const OpenAccount = () => {
               <input
                 value={userData.middleInitial}
                 id='middleInitial'
+                name='middleInitial'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -154,6 +198,7 @@ const OpenAccount = () => {
               <input
                 value={userData.lastName}
                 id='lastName'
+                name='lastName'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -166,6 +211,7 @@ const OpenAccount = () => {
               <input
                 value={userData.ssn}
                 id='ssn'
+                name='ssn'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -175,6 +221,7 @@ const OpenAccount = () => {
               <input
                 value={userData.email}
                 id='email'
+                name='email'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -184,6 +231,7 @@ const OpenAccount = () => {
               <input
                 value={userData.phoneNumber}
                 id='phone'
+                name='phoneNumber'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -193,6 +241,7 @@ const OpenAccount = () => {
               <input
                 value={userData.country}
                 id='country'
+                name='country'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -203,6 +252,7 @@ const OpenAccount = () => {
               <input
                 value={userData.state}
                 id='state'
+                name='state'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -212,6 +262,7 @@ const OpenAccount = () => {
               <input
                 value={userData.city}
                 id='city'
+                name='city'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -221,6 +272,7 @@ const OpenAccount = () => {
               <input
                 value={userData.zipcode}
                 id='zipcode'
+                name='zipcode'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -230,6 +282,7 @@ const OpenAccount = () => {
               <input
                 value={userData.username}
                 id='username'
+                name='username'
                 type='text'
                 onChange={handleUserInputChange}
               />
@@ -239,7 +292,8 @@ const OpenAccount = () => {
               <input
                 value={userData.password}
                 id='password'
-                type='text'
+                name='password'
+                type='password'
                 onChange={handleUserInputChange}
               />
             </div>
@@ -249,7 +303,8 @@ const OpenAccount = () => {
               <input
                 value={userData.confirmPassword}
                 id='confirmPassword'
-                type='text'
+                name='confirmPassword'
+                type='password'
                 onChange={handleUserInputChange}
               />
             </div>

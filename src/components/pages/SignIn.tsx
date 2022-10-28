@@ -43,10 +43,14 @@ const SignIn = () => {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
-      .post(`http://localhost:8080/login`, {
-        username: data.username,
-        password: data.password,
-      })
+      .post(
+        `http://localhost:8080/login`,
+        {
+          username: data.username,
+          password: data.password,
+        },
+        { withCredentials: true }
+      )
       .then((resp) => {
         dispatch(setUser(resp.data));
         console.log(resp.data);
