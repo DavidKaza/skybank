@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import Button from '../Button';
 import Form from '../Form';
@@ -34,6 +34,8 @@ const SignIn = () => {
     password: '',
   });
 
+  let navigateProfile = useNavigate();
+
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
@@ -42,8 +44,7 @@ const SignIn = () => {
         password: data.password,
       })
       .then((resp) => {
-        console.log(resp.status);
-        console.log(resp.data);
+        navigateProfile('/Profile')
       });
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
