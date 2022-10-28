@@ -10,7 +10,7 @@ public class UserRepository {
     public User addUser(User user) throws SQLException {
 
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
-            String sql = "insert into users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode, username, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "insert into project2.users (first_name, middle_initial, last_name, ssn, email, phone_number, country, state, city, zipcode, username, password) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -38,12 +38,9 @@ public class UserRepository {
 
     }
 
-
-
-
     public User getUserByUsername(String username) throws SQLException{
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
-            String sql = "SELECT * FROM users as u WHERE u.username = ?";
+            String sql = "SELECT * FROM project2.users as u WHERE u.username = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setString(1, username);
@@ -78,7 +75,7 @@ public class UserRepository {
     //login
     public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
-            String sql = "SELECT * FROM users as u WHERE u.username = ? AND u.password = ?";
+            String sql = "SELECT * FROM project2.users as u WHERE u.username = ? AND u.password = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setString(1, username);

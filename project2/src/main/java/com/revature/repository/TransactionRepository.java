@@ -24,14 +24,14 @@ public class TransactionRepository {
                     " declare pre_transaction numeric;" +
                     " declare receiving_person integer;" +
                     " begin " +
-                    "    select balance from accounts into pre_transaction where id = sending_acc; " +
-                    "    select id from accounts into receiving_person where id = receiving_acc;" +
+                    "    select balance from project2.accounts into pre_transaction where id = sending_acc; " +
+                    "    select id from project2.accounts into receiving_person where id = receiving_acc;" +
                     "    if not found then " +
                     "       raise 'No such account exists';" +
                     "    elseif pre_transaction - amount < 0 then raise 'Insufficient Funds';" +
                     "       else " +
-                    "           update accounts set balance = balance - amount where id = sender_acc;" +
-                    "           update accounts set balance = balance + amount where id = receiving_acc;" +
+                    "           update project2.accounts set balance = balance - amount where id = sender_acc;" +
+                    "           update project2.accounts set balance = balance + amount where id = receiving_acc;" +
                     "           insert into transactions (date, from_account_id, to_account_id, total_amount, note) values (current_timestamp, sending_acc, receiving_account, amount, message);" +
                     "    end if;" +
                     "    commit;" +

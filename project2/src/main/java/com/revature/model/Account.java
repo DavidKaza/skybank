@@ -12,7 +12,7 @@ public class Account {
 
     public Account(){}
 
-    public Account (int id, float balance, String nickname, int fkAccountTye, int fkUserId) {
+    public Account (int id, float balance, String nickname, int fkAccountType, int fkUserId) {
 
         this.id = id;
         this.balance =balance;
