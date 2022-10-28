@@ -1,9 +1,12 @@
 package com.revature.service;
 
+import com.revature.model.Account;
+import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 import com.revature.repository.TransactionRepository;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class TransactionService {
 
@@ -12,5 +15,9 @@ public class TransactionService {
 
     public void transfer(Transfer t) throws SQLException {
         transactionRepository.transfer(t);
+    }
+
+    public List<Transaction> getAllTransactionsForUser(int fromAccountId) throws SQLException {
+        return transactionRepository.getAllTransactionsForUser(fromAccountId);
     }
 }

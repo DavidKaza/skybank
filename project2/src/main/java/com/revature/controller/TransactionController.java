@@ -1,6 +1,7 @@
 package com.revature.controller;
 
 import com.revature.model.Account;
+import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 import com.revature.model.User;
 import com.revature.service.TransactionService;
@@ -17,7 +18,7 @@ public class TransactionController {
 
 
         // Endpoint is for user to "request" transaction
-        app.get("/users/{userId}/transactions", (ctx) -> {
+        app.post("/users/{userId}/transactions", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();
 
             User user = (User) httpSession.getAttribute("user");
@@ -29,6 +30,28 @@ public class TransactionController {
                 if (user.getId() == userId) {
                     transactionService.transfer(transferAdded);
                     ctx.json(transferAdded);
+                } else {
+                    ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
+                    ctx.status(401);
+                }
+            } else {
+                ctx.result("You are not logged in!");
+                ctx.status(401);
+            }
+        });
+
+        // Endpoint is for user to view all transactions they're involved with
+        app.get("/users/{userId}/transactions", (ctx) -> {
+            HttpSession httpSession = ctx.req.getSession();
+
+            User user = (User) httpSession.getAttribute("user");
+
+            if (user != null) { // Check if logged in
+
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                if (user.getId() == userId) {
+                    List<Transaction> transactions = transactionService.getAllTransactionsForUser(userId);
+                    ctx.json(transactions);
                 } else {
                     ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
                     ctx.status(401);

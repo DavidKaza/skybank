@@ -44,11 +44,9 @@ date timestamp not null,
 from_account_id integer not null,
 to_account_id integer not null,
 total_amount numeric not null,
-users_id integer not null,
 note varchar (500),
 foreign key (from_account_id) references accounts(id),
 foreign key (to_account_id) references accounts(id),
-foreign key (users_id) references users(id)
 );
 
 select * from users;
@@ -80,6 +78,7 @@ begin
 	commit;
 end;
 $$
+
 
 
 --To see all accounts, their type, and their balances for a customer
