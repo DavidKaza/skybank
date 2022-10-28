@@ -63,7 +63,7 @@ export const StyledHeader = styled.header`
 `;
 
 const Header: React.FC = () => {
-  const User = useAppSelector(selectUser);
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
   let navigateHome = useNavigate();
   return (
@@ -74,7 +74,7 @@ const Header: React.FC = () => {
             <Link to='/'>SkyNet</Link>
           </div>
           <ul>
-            {User.id ? (
+            {user.id ? (
               <div className='user-menu'>
                 <li>
                   <Link to='profile'>Profile</Link>
@@ -99,19 +99,19 @@ const Header: React.FC = () => {
             )}
           </ul>
         </div>
-        {User.id ? (
+        {user.id ? (
           <ul className='lowerNav'>
             <li>
               <Link to='/accounts'>Accounts</Link>
+            </li>
+            <li>
+              <Link to='/openaccount'>Open New Account</Link>
             </li>
             <li>
               <Link to='/payments'>Payments and Transfers</Link>
             </li>
             <li>
               <Link to='/messages'>Messages</Link>
-            </li>
-            <li>
-              <Link to='/OpenAccount'>Open Account</Link>
             </li>
             <li>
               <Link to='/help'>Help</Link>

@@ -32,13 +32,13 @@ const StyledDiv = styled.div`
     margin: 0;
   }
   .login {
-    font-size: 1.5rem;
     color: #fff;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
     p {
+      padding: 5px;
       a {
         color: var(--primary);
         &:hover {
@@ -73,6 +73,9 @@ const Hero = () => {
           </Button>
           <p>
             Not enrolled? <Link to='/signup'>Sign up now.</Link>
+          </p>
+          <p>
+            New to SkyBank? <Link to='/openaccount'>Open Account</Link>
           </p>
         </Form>
       </div>

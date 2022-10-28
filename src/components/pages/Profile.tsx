@@ -24,12 +24,6 @@ const Profile = () => {
 
           <tbody>
             <tr className='info'>
-              <td>Yasin A. Adam</td>
-              <td>123-456-7890</td>
-              <td>yasin@gmail.com</td>
-              <td>123 Main Street, Main City, 12345</td>
-            </tr>
-            <tr className='info'>
               <td>
                 {`${User.firstName} ${User.middleInitial} ${User.lastName}`}
               </td>
