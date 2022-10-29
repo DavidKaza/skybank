@@ -11,8 +11,18 @@ import Help from './components/pages/Help';
 import Footer from './components/Footer';
 import SignUp from './components/pages/SignUp';
 import SignIn from './components/pages/SignIn';
+import { useEffect } from 'react';
+import { useAppDispatch } from './shared/hooks';
+import { setUser } from './shared/UserSlicer';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const user = window.localStorage.getItem('user');
+    if (user !== null) dispatch(setUser(JSON.parse(user)));
+  }, [dispatch]);
+
   return (
     <div className='App'>
       <BrowserRouter>

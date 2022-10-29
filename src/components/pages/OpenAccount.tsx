@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
@@ -102,7 +102,7 @@ const OpenAccount = () => {
       )
       .then((resp) => {
         dispatch(setUser(resp.data));
-        console.log(resp.data);
+        window.localStorage.setItem('user', JSON.stringify(resp.data));
       });
   }
   function handleAccountInputChange(e: React.ChangeEvent<HTMLInputElement>) {
