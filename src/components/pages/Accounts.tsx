@@ -1,10 +1,22 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../shared/hooks';
+import { selectUser } from '../../shared/UserSlicer';
 import MakeAll from '../AllAccounts';
 import './Accounts.css';
 
 const Accounts = () => {
+  
+  const User = useAppSelector(selectUser);
+  const id = User.id; 
 
   const [accounts, setAccounts] = useState(<div>Loading</div>)
+  useEffect(() => {
+    axios.get(`/users/${id}/balance`)
+    .then((response) => {
+      setAccounts(MakeAll(response.data))
+    })
+  }, [])
 
 
   return (
@@ -14,7 +26,7 @@ const Accounts = () => {
         Accounts Page
       </h3>
     </div>
-    <div></div>
+    <div>{accounts}</div>
   </main>
   );
 };
