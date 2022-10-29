@@ -59,6 +59,9 @@ const SignIn = () => {
         dispatch(setUser(resp.data));
         window.localStorage.setItem('user', JSON.stringify(resp.data));
         navigateProfile('/Profile');
+      })
+      .catch((e) => {
+        alert(e.response.data);
       });
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -90,7 +93,9 @@ const SignIn = () => {
             type='password'
             onChange={handleChange}
           />
-          <Button>Sign In</Button>
+          <Button disabled={data.username && data.password ? false : true}>
+            Sign In
+          </Button>
           <p>Not enrolled?</p>
           <Link to='/signup'>Signup Now</Link>
         </Form>

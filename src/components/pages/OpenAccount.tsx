@@ -52,6 +52,8 @@ const OpenAccount = () => {
     confirmPassword: '',
   });
 
+  const [buttonDisabled, setButtonDisabled] = useState(false);
+
   let navigateProfile = useNavigate();
 
   const user = useAppSelector(selectUser);
@@ -127,6 +129,19 @@ const OpenAccount = () => {
       [e.target.name]: value,
     });
   }
+
+  useEffect(() => {
+    for (let field in userData) {
+      setButtonDisabled(false);
+      if (field === 'middleInitial') {
+        continue;
+      }
+      if (!userData[field as keyof typeof userData]) {
+        setButtonDisabled(true);
+        break;
+      }
+    }
+  }, [userData]);
 
   return (
     <StyledMain>
@@ -309,7 +324,9 @@ const OpenAccount = () => {
               />
             </div>
 
-            <Button className='span2'>Next</Button>
+            <Button disabled={buttonDisabled ? true : false} className='span2'>
+              Next
+            </Button>
           </Form>
         )}
       </section>
