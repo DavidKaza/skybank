@@ -42,7 +42,7 @@ const Accounts = () => {
   }, [])
 
   useEffect(() => {
-    axios.get(`/users/{userId}/transactions`)
+    axios.get(`/users/${id}/transactions`)
     .then((response) => {
       setTransactions(getAll(response.data))
     })
