@@ -1,6 +1,55 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from '../../shared/hooks';
+import { selectUser } from '../../shared/UserSlicer';
+import MakeAll from '../AllAccounts';
+import getAll from '../AllTransactions';
 import './Accounts.css';
 
 const Accounts = () => {
+  
+  const User = useAppSelector(selectUser);
+  const id = User.id; 
+
+  const [accounts, setAccounts] = useState
+  (<div>
+    <div>
+      <div>Checking Account</div>
+      <div></div>
+      <div>$100</div>
+    </div>
+  </div>
+  )
+  const [transactions, setTransactions] = useState
+  (<div>
+    <tbody>
+      <div>
+      <tr>
+              <td className='date'>10-26-2022</td>
+                <td className='amt'> $100</td>
+                <td className='person'>Yasin</td>
+              <td className='msg'>Test message</td>
+              </tr>
+      </div>
+      </tbody>
+</div>)
+
+  useEffect(() => {
+    axios.get(`/users/${id}/balance`)
+    .then((response) => {
+      setAccounts(MakeAll(response.data))
+    })
+  }, [])
+
+  useEffect(() => {
+    axios.get(`/users/${id}/transactions`)
+    .then((response) => {
+      setTransactions(getAll(response.data))
+    })
+  }, [])
+
+
+
   return (
   <main>
     <div>
@@ -8,72 +57,31 @@ const Accounts = () => {
         Accounts Page
       </h3>
     </div>
+    <div>
+    </div>
+    <div>{accounts}</div>
 
-    <div className="accordion accordion-flush" id="accounts">
+    <div><h3>Transactions</h3></div>
 
-  <div className="accordion-item">
-  
-    <h2 className="accordion-header" id="account-name">
-      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-        <div className='account-name'>Checking Account</div>
-        <div className='balance'>
-          Balance
-        </div>
-        <div className='balance-amount'>$100</div>
-      </button>
-    </h2>
-
-    <div id="flush-collapseOne" className="collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-      <div className='transactions'>Transactions</div>
+    <div>
+      <div>
       <table className='table'>
         <thead>
-          <tr className='userInfo-columns'>
-          <th scope="col">Date</th>
-            <th scope="col">Amount</th>
-            <th scope="col">Sender/Reciever</th>
-            <th scope="col">Message</th>
+          <tr>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Sender/Reciever</th>
+            <th>Message</th>
           </tr>
         </thead>
-
-        <tbody className='table.striped'>
-            <tr>
-              <td>10-26-2022</td>
-              <td className='transactions-add' id='add'> $100</td>
-              <td>Yasin</td>
-              <td>Test message</td>
-            </tr>
-            <tr>
-              <td>10-26-2022</td>
-              <td className='transactions-subtract' id='subtract'> $100</td>
-              <td>Yasin</td>
-              <td>Test message</td>
-            </tr>
-        </tbody>
       </table>
-      </div>
-
-  </div>
-
-  <div className="accordion-item">
-
-    <h2 className="accordion-header" id="account-name2">
-      <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
-        Savings Account
-        <div className='balance'>
-            Balance
-      </div>
-      <div className='balance-amount'>$100</div>
-      </button>
-    </h2>
-
-    <div id="flush-collapseTwo" className="collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-      <div>
-      <h4 className='transactions'>Transactions</h4>
-      </div>
     </div>
 
-  </div>
-</div>
+    <tbody>
+    {transactions}            
+    </tbody>
+    
+      </div>
   </main>
   );
 };
