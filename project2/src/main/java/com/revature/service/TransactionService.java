@@ -7,6 +7,7 @@ import com.revature.model.Transfer;
 import com.revature.repository.TransactionRepository;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionService {
@@ -20,7 +21,9 @@ public class TransactionService {
         transactionRepository.transfer(t);
     }
 
-    public List<Transaction> getAllTransactionsForUser(int fromAccountId) throws SQLException {
-        return transactionRepository.getAllTransactionsForUser(fromAccountId);
+    public List<Transaction> getAllTransactionsForUser(int userId) throws SQLException {
+        List<Transaction> transactions = transactionRepository.getAllTransactionsForUser(userId);
+        return transactions;
     }
+        
 }

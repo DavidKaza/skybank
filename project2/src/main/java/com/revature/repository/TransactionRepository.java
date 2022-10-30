@@ -55,18 +55,20 @@ public class TransactionRepository {
     }
 
     //list all of your transactions
-    public List<Transaction> getAllTransactionsForUser(int fromAccountId) throws SQLException {
+    public List<Transaction> getAllTransactionsForUser(int userId) throws SQLException {
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
 
             List<Transaction> transactions = new ArrayList<>();
 
-            String sql = "SELECT * FROM transactions WHERE from_account_id = ?";
+            // String sql = "SELECT * FROM transactions WHERE  = ?";
 
-            PreparedStatement pstmt = connectionObject.prepareStatement(sql);
+            // PreparedStatement pstmt = connectionObject.prepareStatement(sql);
+            CallableStatement cstmt = connectionObject.prepareCall("select * from allTransactions(4)");
 
-            pstmt.setInt(1, fromAccountId);
+            // pstmt.setInt(1, fromAccountId);
 
-            ResultSet rs = pstmt.executeQuery();
+            // ResultSet rs = pstmt.executeQuery();
+            ResultSet rs = cstmt.executeQuery();
 
             while (rs.next()) {
                 int id = rs.getInt("id");

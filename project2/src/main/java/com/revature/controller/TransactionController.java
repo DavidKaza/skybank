@@ -49,6 +49,7 @@ public class TransactionController {
         });
 
         // Endpoint is for user to view all transactions they're involved with
+        app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
         app.get("/users/{userId}/transactions", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();
 
