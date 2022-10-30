@@ -14,7 +14,7 @@ public class AccountRepository {
 
             List<Account> accounts = new ArrayList<>();
 
-            String sql = "SELECT * FROM accounts WHERE fk_users_id =?";
+            String sql = "SELECT * FROM project2.accounts WHERE fk_users_id =?";
 
             PreparedStatement pstmt = connectionObject.prepareStatement(sql);
 
@@ -42,7 +42,7 @@ public class AccountRepository {
     public Account addAccount(Account accounts) throws SQLException {
 
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
-            String sql = "insert into accounts (balance, nickname, fk_account_type, fk_users_id) values (?, ?, ?, ?)";
+            String sql = "insert into project2.accounts (balance, nickname, fk_account_type, fk_users_id) values (?, ?, ?, ?)";
 
             PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

@@ -4,7 +4,7 @@ const StyledButton = styled.button`
   background-color: var(--primary);
   border: none;
   width: 200px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 15px;
   font-size: 1.5rem;
   color: #fff;
@@ -25,10 +25,21 @@ const StyledButton = styled.button`
 
 interface Props {
   readonly children: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  className?: string;
 }
 
-const Button = (props: Props) => {
-  return <StyledButton>{props.children}</StyledButton>;
+const Button: React.FC<Props> = (props) => {
+  return props.onClick ? (
+    <StyledButton
+      className={props.className ? props.className : ''}
+      onClick={props.onClick}
+    >
+      {props.children}
+    </StyledButton>
+  ) : (
+    <StyledButton>{props.children}</StyledButton>
+  );
 };
 
 export default Button;

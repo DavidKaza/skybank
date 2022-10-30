@@ -53,15 +53,11 @@ public class AccountController {
                     try {
                         accountToAdd.setFkUserId(user.getId());
                         accountToAdd = accountService.addAccount(accountToAdd);
-
-
-
                         ctx.json(accountToAdd);
                         ctx.status(201);
                     } catch (AmountMustBeGreaterThan0Exception e) {
                         ctx.result(e.getMessage());
                         ctx.status(400);
-
                 }
 
             } else {

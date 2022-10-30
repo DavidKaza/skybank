@@ -2,6 +2,8 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAppDispatch } from '../../shared/hooks';
+import { setUser } from '../../shared/UserSlicer';
 import Button from '../Button';
 import Form from '../Form';
 
@@ -34,6 +36,8 @@ const SignIn = () => {
     password: '',
   });
 
+  const dispatch = useAppDispatch();
+
   let navigateProfile = useNavigate();
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,7 +48,9 @@ const SignIn = () => {
         password: data.password,
       })
       .then((resp) => {
-        navigateProfile('/Profile')
+        dispatch(setUser(resp.data));
+        console.log(resp.data);
+        navigateProfile('/Profile');
       });
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
