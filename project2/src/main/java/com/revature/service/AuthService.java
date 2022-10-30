@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import com.revature.exception.InvalidLoginException;
+import com.revature.exception.SsnMustBeUniqueException;
 import com.revature.exception.UsernameAlreadyExistsException;
 import com.revature.model.User;
 import com.revature.repository.UserRepository;
@@ -20,9 +21,12 @@ public class AuthService {
         }
         return user;
     }
-    public User register(User user) throws UsernameAlreadyExistsException, SQLException {
+    public User register(User user) throws SsnMustBeUniqueException, UsernameAlreadyExistsException, SQLException {
         if (userRepo.getUserByUsername(user.getUsername()) != null) {
             throw new UsernameAlreadyExistsException("User with username " + user.getUsername() + " already exists!");
+        }
+        if(userRepo.getUserBySsn(user.getSsn()) != null) {
+            throw new SsnMustBeUniqueException("Identity theft is not a joke Jim");
         }
 
         User addedUser = userRepo.addUser(user);
