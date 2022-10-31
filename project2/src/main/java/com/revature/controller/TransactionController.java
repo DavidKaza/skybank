@@ -29,10 +29,17 @@ public class TransactionController {
 
                 int userId = Integer.parseInt(ctx.pathParam("userId"));
                 if (user.getId() == userId) {
-                    transactionService.transfer(transferAdded);
-                    ctx.json(transferAdded);
-                } else {
-                    ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
+
+                    if (userId == transferAdded.getReceivingAccount() || userId == transferAdded.getSendingAccount()){
+                        transactionService.transfer(transferAdded);
+                        ctx.json(transferAdded);
+
+                    } else{
+                        ctx.result("You must either be the sender or receiver of this transaction");
+                        ctx.status(401);
+                    }
+                }else{
+                    ctx.result("You must submit transactions for yourself");
                     ctx.status(401);
                 }
             } else {
@@ -54,7 +61,7 @@ public class TransactionController {
                     List<Transaction> transactions = transactionService.getAllTransactionsForUser(userId);
                     ctx.json(transactions);
                 } else {
-                    ctx.result("You are not logged in as the user you are trying to retrieve your balance from");
+                    ctx.result("You are not logged in as the user you are trying to retrieve your transactions from");
                     ctx.status(401);
                 }
             } else {
