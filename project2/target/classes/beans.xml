@@ -4,27 +4,63 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!-- So, Id attribute is to specifically select the bean
-        class attribute is how to find the class to make the bean out of
-      -->
-    <bean id="pokemonDao" class="com.revature.dao.PokemonDao"
-          init-method="customInitializationMethod"
-          destroy-method="customDestroyMethod"
-    >
+    <bean id="accountRepository" class="com.revature.repository.AccountRepository">
 
     </bean>
 
-    <bean id="pokemonService" class="com.revature.service.PokemonService">
-
-        <!-- Extra configuration required to explicitly say to Spring that this Pokemon Service bean also requires a Pokemon Dao bean to work -->
-        <constructor-arg ref="pokemonDao"></constructor-arg>
+    <bean id="accountService" class="com.revature.service.AccountService">
+        <constructor-arg ref="accountRepository"/>
     </bean>
 
-    <bean id="pokemon" class="com.revature.model.Pokemon" scope="prototype">
-        <!-- injecting primitives -->
-        <constructor-arg type="String" value="Default"></constructor-arg>
-        <constructor-arg type="int" value="5"></constructor-arg>
-        <constructor-arg type="int" value="1"></constructor-arg>
+    <bean id="accountController" class="com.revature.controller.AccountController">
+        <constructor-arg ref="accountService"/>
     </bean>
+
+    <bean id="transactionRepository" class="com.revature.repository.TransactionRepository">
+
+    </bean>
+
+    <bean id="transactionService" class="com.revature.service.TransactionService">
+        <constructor-arg ref="transactionRepository"/>
+    </bean>
+
+    <bean id="transactionController" class="com.revature.controller.TransactionController">
+        <constructor-arg ref="transactionService"/>
+    </bean>
+
+    <bean id="userRepository" class="com.revature.repository.UserRepository">
+
+    </bean>
+
+    <bean id="authService" class="com.revature.service.AuthService">
+        <constructor-arg ref="userRepository"/>
+    </bean>
+
+    <bean id="authController" class="com.revature.controller.AuthController">
+        <constructor-arg ref="authService"/>
+    </bean>
+
+
+    <bean id="account" class="com.revature.model.Account" scope="prototype">
+
+    </bean>
+
+    <bean id="accountType" class="com.revature.model.AccountType" scope="prototype">
+
+    </bean>
+
+    <bean id="transaction" class="com.revature.model.Transaction" scope="prototype">
+
+    </bean>
+
+    <bean id="transfer" class="com.revature.model.Transfer" scope="prototype">
+
+    </bean>
+
+    <bean id="user" class="com.revature.model.User" scope="prototype">
+
+    </bean>
+
+    <!-- more bean definitions go here -->
 
 </beans>
