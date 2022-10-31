@@ -83,7 +83,24 @@ begin
 end;
 $$;
 
+drop function if exists allTransactions(user_id integer)
 
+create function allTransactions(user_id integer)
+returns table
+(id integer,
+date timestamp,
+from_account_id integer,
+to_account_id integer,
+total_amount numeric,
+note varchar (500) )
+language plpgsql
+as 
+$$
+begin
+	return query SELECT t.id, t.date, t.from_account_id, t.to_account_id, t.total_amount, t.note  FROM transactions t join accounts a on a.id = t.from_account_id join users u on u.id = a.fk_users_id where u.id = user_id;
+
+end;
+$$;
 
 --To see all accounts, their type, and their balances for a customer
 select accounts.balance, account_type.type from accounts join account_type on account_type.id = accounts.fk_account_type join users on users.id = accounts.fk_users_id where users.id = 1;
