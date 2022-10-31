@@ -83,6 +83,7 @@ const Header: React.FC = () => {
                   <Button
                     onClick={() => {
                       dispatch(setDefault());
+                      localStorage.removeItem('user');
                       navigateHome('/');
                     }}
                   >

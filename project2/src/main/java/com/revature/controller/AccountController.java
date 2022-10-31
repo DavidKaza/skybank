@@ -16,7 +16,7 @@ public class AccountController {
 
     public void mapEndpoints(Javalin app) {
 
-
+        app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
         // Endpoint is for user to view own account balance
         app.get("/users/{userId}/balance", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();
@@ -46,7 +46,7 @@ public class AccountController {
             HttpSession httpSession = ctx.req.getSession();
 
             User user = (User) httpSession.getAttribute("user");
-
+            
             if (user != null) { // Check if logged in
                 int userId = Integer.parseInt(ctx.pathParam("userId"));
                 if (user.getId() == userId) {

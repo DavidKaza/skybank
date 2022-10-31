@@ -1,3 +1,4 @@
+import { TransformStreamDefaultController } from 'node:stream/web';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -21,12 +22,16 @@ const StyledButton = styled.button`
       color: #fff;
     }
   }
+  &[disabled] {
+    background-color: #888;
+  }
 `;
 
 interface Props {
   readonly children: React.ReactNode;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   className?: string;
+  disabled?: boolean;
 }
 
 const Button: React.FC<Props> = (props) => {
@@ -38,7 +43,9 @@ const Button: React.FC<Props> = (props) => {
       {props.children}
     </StyledButton>
   ) : (
-    <StyledButton>{props.children}</StyledButton>
+    <StyledButton disabled={props.disabled ? true : false}>
+      {props.children}
+    </StyledButton>
   );
 };
 

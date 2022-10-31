@@ -1,9 +1,9 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { useAppDispatch } from '../../shared/hooks';
-import { setUser } from '../../shared/UserSlicer';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { selectUser, setUser } from '../../shared/UserSlicer';
 import Button from '../Button';
 import Form from '../Form';
 
@@ -36,21 +36,32 @@ const SignIn = () => {
     password: '',
   });
 
+  const user = useAppSelector(selectUser);
   const dispatch = useAppDispatch();
 
   let navigateProfile = useNavigate();
+  if (user.id !== 0) {
+    navigateProfile('/profile');
+  }
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
-      .post(`http://localhost:8080/login`, {
-        username: data.username,
-        password: data.password,
-      })
+      .post(
+        `http://localhost:8080/login`,
+        {
+          username: data.username,
+          password: data.password,
+        },
+        { withCredentials: true }
+      )
       .then((resp) => {
         dispatch(setUser(resp.data));
-        console.log(resp.data);
+        window.localStorage.setItem('user', JSON.stringify(resp.data));
         navigateProfile('/Profile');
+      })
+      .catch((e) => {
+        alert(e.response.data);
       });
   }
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -82,7 +93,9 @@ const SignIn = () => {
             type='password'
             onChange={handleChange}
           />
-          <Button>Sign In</Button>
+          <Button disabled={data.username && data.password ? false : true}>
+            Sign In
+          </Button>
           <p>Not enrolled?</p>
           <Link to='/signup'>Signup Now</Link>
         </Form>
