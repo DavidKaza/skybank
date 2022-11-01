@@ -1,10 +1,60 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
 import MakeAll from '../AllAccounts';
 import getAll from '../AllTransactions';
-import './Accounts.css';
+
+
+const StyledMain = styled.main`
+h1 {
+  padding: 20px;
+  background-color: var(--primary);
+  color: #fff;
+}
+.table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  border: 1px solid;
+}
+th {
+  width: 25%;
+}
+
+.columns {
+  background-color: #1b87ed;
+}
+
+
+tr:nth-child(even) {
+  background-color: #C0C0C0;
+}
+
+.name {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.balance {
+  font-size: 20px;
+}
+
+.accounts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.all {
+  width: 25%;
+	text-align: center; 
+	box-sizing: border-box;
+}
+`;
 
 const Accounts = () => {
   
@@ -12,25 +62,8 @@ const Accounts = () => {
   const id = User.id; 
 
   const [accounts, setAccounts] = useState
-  (<div>
-    <div>
-      <div>Checking Account</div>
-      <div></div>
-      <div>$100</div>
-    </div>
-  </div>
-  )
-  const [transactions, setTransactions] = useState
-  (
-    <tbody>
-      <tr>
-        <td className='date'>10-26-2022</td>
-        <td className='amt'> $100</td>
-        <td className='person'>Yasin</td>
-        <td className='msg'>Test message</td>
-      </tr>
-    </tbody>  
-)
+  (<div></div>)
+  const [transactions, setTransactions] = useState(<tbody></tbody>)
 
   useEffect(() => {
     axios.get(`http://localhost:8080/users/${id}/balance`, { withCredentials: true })
@@ -51,21 +84,19 @@ const Accounts = () => {
 
 
   return (
-  <main>
+  <StyledMain>
     <div>
-      <h3>
-        Accounts Page
-      </h3>
+      <h1>Accounts Page</h1>
     </div>
 
     {accounts}
 
-    <div><h3>Transactions</h3></div>
+    <div><h3>Transfers</h3></div>
 
     <div>
       <table className='table'>
         <thead>
-          <tr>
+          <tr className='columns'>
             <th>Date</th>
             <th>Amount</th>
             <th>Sender/Reciever</th>
@@ -76,7 +107,7 @@ const Accounts = () => {
       </table>
     </div>
 
-  </main>
+  </StyledMain>
   );
 };
 

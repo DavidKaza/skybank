@@ -1,14 +1,34 @@
+import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
 import { StyledHeader } from '../Header';
+
+const StyledMain = styled.main`
+h1 {
+  padding: 20px;
+  background-color: var(--primary);
+  color: #fff;
+}
+.table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid;
+}
+th {
+  width: 25%;
+}
+
+`;
 
 const Profile = () => {
   const User = useAppSelector(selectUser);
 
   return (
-    <main>
+    <StyledMain>
       <div>
-        <h3>Profile Page</h3>
+        <h1>Profile Page</h1>
       </div>
 
       <div>
@@ -30,13 +50,13 @@ const Profile = () => {
               <td>{User.phoneNumber}</td>
               <td>{User.email}</td>
               <td>
-                {`${User.city} ${User.state} ${User.zipcode} ${User.country}`}
+                {`${User.city}, ${User.state}, ${User.zipcode}, ${User.country}`}
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </main>
+    </StyledMain>
   );
 };
 
