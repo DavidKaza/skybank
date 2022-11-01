@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector } from "../../shared/hooks";
 import { selectUser } from "../../shared/UserSlicer";
@@ -19,23 +20,28 @@ const Payments = () => {
   const [transaction, setTransaction] = useState({
     amount: 0,
     sendingAccount: 0,
-    recievingAccount: 0,
+    receivingAccount: 0,
     message: ""
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
+  
   let userId = User.id
 
-  function onSubmitTransfer() {
+  let navigateProfile = useNavigate();
+
+  function onSubmitTransfer(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     axios.post(`http://localhost:8080/users/${userId}/transfer`,
     {
       amount: transaction.amount,
       sendingAccount: transaction.sendingAccount,
-      recievingAccount: transaction.recievingAccount,
+      receivingAccount: transaction.receivingAccount,
       message: transaction.message
     }, 
     {withCredentials: true})
     .then((response) => {
       console.log(response)
+      navigateProfile('/Accounts')
     });
   }
 
@@ -59,7 +65,7 @@ const Payments = () => {
 
   return (
   <StyledMain>
-    Payments and Transfers Page
+    <h1>Payments and Transfers Page</h1>
     <Form method='post' onSubmit={onSubmitTransfer}>
     <label htmlFor='amount'>Amount</label>
       <input
@@ -77,19 +83,19 @@ const Payments = () => {
         type='number'
         onChange={handleTransferInputChange}
       ></input>
-      <label htmlFor='recievingAccount'>To Account ID</label>
+      <label htmlFor='receivingAccount'>To Account ID</label>
       <input
-        id='recievingAccount'
-        value={transaction.sendingAccount}
-        name='recievingAccount'
+        id='receivingAccount'
+        value={transaction.receivingAccount}
+        name='receivingAccount'
         type='number'
         onChange={handleTransferInputChange}
       ></input>
-      <label htmlFor='note'>Message</label>
+      <label htmlFor='message'>Message</label>
       <input
-        id='note'
-        value={transaction.sendingAccount}
-        name='note'
+        id='message'
+        value={transaction.message}
+        name='message'
         type='text'
         onChange={handleTransferInputChange}
       ></input>
