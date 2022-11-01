@@ -1,10 +1,19 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
 import MakeAll from '../AllAccounts';
 import getAll from '../AllTransactions';
-import './Accounts.css';
+
+
+const StyledMain = styled.main`
+h1 {
+  padding: 20px;
+  background-color: var(--primary);
+  color: #fff;
+}
+`;
 
 const Accounts = () => {
   
@@ -51,11 +60,9 @@ const Accounts = () => {
 
 
   return (
-  <main>
+  <StyledMain>
     <div>
-      <h3>
-        Accounts Page
-      </h3>
+      <h1>Accounts Page</h1>
     </div>
 
     {accounts}
@@ -76,7 +83,7 @@ const Accounts = () => {
       </table>
     </div>
 
-  </main>
+  </StyledMain>
   );
 };
 
