@@ -3,6 +3,7 @@ package com.revature.repository;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
+import com.revature.model.User;
 
 
 import java.sql.*;
@@ -83,4 +84,49 @@ public class TransactionRepository {
         }
     }
 
+    // add getAccountsOfUser so that you can fix the bug Yasin found
+    public Account getAccountsOfUser(int fkUserId) throws SQLException {
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+            String sql = "Select * From project2.accounts as a WHERE a.fk_users_id = ?";
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql);
+
+            pstmt.setInt(1, fkUserId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+
+                int id = rs.getInt("id");
+                int bal = rs.getInt("balance");
+                String nn = rs.getString("nickname");
+                int at = rs.getInt("fk_account_type");
+                int ui = rs.getInt("fk_users_id");
+
+
+                return new Account (id, bal, nn, at, ui);
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public ArrayList<Integer> getAccounts(int fkUserId) throws SQLException {
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+            String sql = "Select * From project2.accounts as a WHERE a.fk_users_id = ?";
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql);
+
+            pstmt.setInt(1, fkUserId);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            ArrayList<Integer> account = new ArrayList<>();
+
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                account.add(id);
+            }
+            return account;
+        }
+    }
 }
