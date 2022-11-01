@@ -5,13 +5,12 @@ function MakeAll(a:IAccountModel[]) {
 
     const list = a.map((a) => (
             
-  <div id={a.id.toString()} key={a.id}>
-        <div>{a.nickname}</div>
-        <div></div>
-        <div>${a.balance}</div>
+  <div className="all" key={a.id}>
+        <div className="name">{a.nickname}-{a.id.toString()}</div>
+        <div className="balance">Available Balance: ${a.balance}</div>
   </div>
     ))
-  return (<div>{list}</div>);
+  return (<div className="accounts">{list}</div>);
     };
   
     export default MakeAll;
