@@ -40,7 +40,6 @@ const SignIn = () => {
   const dispatch = useAppDispatch();
 
   let navigateProfile = useNavigate();
-
   useEffect(() => {
     if (user.id !== 0) {
       navigateProfile('/profile');

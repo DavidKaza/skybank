@@ -35,9 +35,9 @@ public class TransactionRepository {
             // String sql = "SELECT * FROM transactions WHERE  = ?";
 
             // PreparedStatement pstmt = connectionObject.prepareStatement(sql);
-            CallableStatement cstmt = connectionObject.prepareCall("select * from allTransactions(4)");
+            CallableStatement cstmt = connectionObject.prepareCall("select * from allTransactions(?)");
 
-            // pstmt.setInt(1, fromAccountId);
+            cstmt.setInt(1, userId);
 
             // ResultSet rs = pstmt.executeQuery();
             ResultSet rs = cstmt.executeQuery();
