@@ -83,7 +83,7 @@ begin
 end;
 $$;
 
-drop function if exists allTransactions(user_id integer)
+drop function if exists allTransactions(user_id integer);
 
 create function allTransactions(user_id integer)
 returns table
