@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import com.revature.exception.AccountDoesntExistException;
+import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
@@ -25,5 +26,19 @@ public class TransactionService {
         List<Transaction> transactions = transactionRepository.getAllTransactionsForUser(userId);
         return transactions;
     }
-        
+
+    public Account getAccountsOfUser(int fkUserId) throws TransferingMoneyMustIncludeYouException, SQLException {
+        Account accounts = transactionRepository.getAccountsOfUser(fkUserId);
+        return accounts;
+    }
+
+    public void getTransfer(Transfer t, int userId) throws TransferingMoneyMustIncludeYouException, SQLException{
+
+        ArrayList<Integer> accounts = transactionRepository.getAccounts(userId);
+        if (accounts.contains(t.getSendingAccount())) {
+            transactionRepository.transfer(t);
+        } else if (!accounts.contains(t.getSendingAccount())) {
+            throw new TransferingMoneyMustIncludeYouException("This account doesn't belong to you");
+        }
+    }
 }
