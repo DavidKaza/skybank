@@ -9,6 +9,17 @@ h1 {
   background-color: var(--primary);
   color: #fff;
 }
+.table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid;
+}
+th {
+  width: 25%;
+}
+
 `;
 
 const Profile = () => {
@@ -39,7 +50,7 @@ const Profile = () => {
               <td>{User.phoneNumber}</td>
               <td>{User.email}</td>
               <td>
-                {`${User.city} ${User.state} ${User.zipcode} ${User.country}`}
+                {`${User.city}, ${User.state}, ${User.zipcode}, ${User.country}`}
               </td>
             </tr>
           </tbody>

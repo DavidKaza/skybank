@@ -30,7 +30,7 @@ public class TransactionController {
                 int userId = Integer.parseInt(ctx.pathParam("userId"));
                 if (user.getId() == userId) {
 
-                    if (userId == transferAdded.getReceivingAccount() || userId == transferAdded.getSendingAccount()){
+                    if (true){
                         transactionService.transfer(transferAdded);
                         ctx.json(transferAdded);
 
