@@ -1,5 +1,6 @@
 package com.revature.controller;
 
+import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
@@ -49,7 +50,10 @@ public class TransactionController {
                 } catch (TransferingMoneyMustIncludeYouException t) {
 
                     ctx.result(t.getMessage());
-                    ctx.status(401);
+                    ctx.status(400);
+                } catch (AmountMustBeGreaterThan0Exception a) {
+                    ctx.result(a.getMessage());
+                    ctx.status(400);
                 }
         });
 

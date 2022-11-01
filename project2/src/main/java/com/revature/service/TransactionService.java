@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import com.revature.exception.AccountDoesntExistException;
+import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
@@ -31,14 +32,16 @@ public class TransactionService {
         Account accounts = transactionRepository.getAccountsOfUser(fkUserId);
         return accounts;
     }
-
-    public void getTransfer(Transfer t, int userId) throws TransferingMoneyMustIncludeYouException, SQLException{
+    
+    public void getTransfer(Transfer t, int userId) throws TransferingMoneyMustIncludeYouException, SQLException, AmountMustBeGreaterThan0Exception{
 
         ArrayList<Integer> accounts = transactionRepository.getAccounts(userId);
-        if (accounts.contains(t.getSendingAccount())) {
-            transactionRepository.transfer(t);
+        if (t.getAmount() <= 0) {
+            throw new AmountMustBeGreaterThan0Exception("Transfer amount must be greater than zero");
         } else if (!accounts.contains(t.getSendingAccount())) {
             throw new TransferingMoneyMustIncludeYouException("This account doesn't belong to you");
+        } else {
+            transactionRepository.transfer(t);
         }
     }
 }

@@ -68,6 +68,9 @@ const Payments = () => {
     .then((response) => {
       console.log(response)
       navigateProfile('/Accounts')
+    })
+    .catch((e) => {
+      alert(e.response.data);
     });
   }
 
