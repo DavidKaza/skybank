@@ -1,14 +1,23 @@
+import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
 import { StyledHeader } from '../Header';
+
+const StyledMain = styled.main`
+h1 {
+  padding: 20px;
+  background-color: var(--primary);
+  color: #fff;
+}
+`;
 
 const Profile = () => {
   const User = useAppSelector(selectUser);
 
   return (
-    <main>
+    <StyledMain>
       <div>
-        <h3>Profile Page</h3>
+        <h1>Profile Page</h1>
       </div>
 
       <div>
@@ -36,7 +45,7 @@ const Profile = () => {
           </tbody>
         </table>
       </div>
-    </main>
+    </StyledMain>
   );
 };
 
