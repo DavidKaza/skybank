@@ -21,29 +21,29 @@ const Accounts = () => {
   </div>
   )
   const [transactions, setTransactions] = useState
-  (<div>
+  (
     <tbody>
-      <div>
       <tr>
-              <td className='date'>10-26-2022</td>
-                <td className='amt'> $100</td>
-                <td className='person'>Yasin</td>
-              <td className='msg'>Test message</td>
-              </tr>
-      </div>
-      </tbody>
-</div>)
+        <td className='date'>10-26-2022</td>
+        <td className='amt'> $100</td>
+        <td className='person'>Yasin</td>
+        <td className='msg'>Test message</td>
+      </tr>
+    </tbody>  
+)
 
   useEffect(() => {
-    axios.get(`/users/${id}/balance`)
+    axios.get(`http://localhost:8080/users/${id}/balance`, { withCredentials: true })
     .then((response) => {
+      console.log(response)
       setAccounts(MakeAll(response.data))
     })
   }, [])
 
   useEffect(() => {
-    axios.get(`/users/${id}/transactions`)
+    axios.get(`http://localhost:8080/users/${id}/transactions`, { withCredentials: true })
     .then((response) => {
+      console.log(response)
       setTransactions(getAll(response.data))
     })
   }, [])
@@ -57,14 +57,12 @@ const Accounts = () => {
         Accounts Page
       </h3>
     </div>
-    <div>
-    </div>
-    <div>{accounts}</div>
+
+    {accounts}
 
     <div><h3>Transactions</h3></div>
 
     <div>
-      <div>
       <table className='table'>
         <thead>
           <tr>
@@ -74,14 +72,10 @@ const Accounts = () => {
             <th>Message</th>
           </tr>
         </thead>
+        {transactions}    
       </table>
     </div>
 
-    <tbody>
-    {transactions}            
-    </tbody>
-    
-      </div>
   </main>
   );
 };

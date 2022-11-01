@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< HEAD
+/target
+=======
+project2/target/classes/com/revature/repository/TransactionRepository.class
+project2/target/classes/com/revature/service/TransactionService.class
+>>>>>>> main
