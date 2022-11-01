@@ -75,7 +75,11 @@ const OpenAccount = () => {
       .then((resp) => {
         console.log(resp.data);
         navigateProfile('/Profile');
-      });
+      })
+      .catch((e) => {
+        alert(e.response.data);
+      }
+      );
   }
   function onSubmitNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
