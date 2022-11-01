@@ -40,7 +40,7 @@ fk_users_id integer not null,
 foreign key (fk_account_type) references project2.account_type(id),
 foreign key (fk_users_id) references project2.users(id)
 );
-
+insert into project2.account_type (type) values ('Savings'), ('Checking'), ('Credit');
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (1, 38151, 'Gabvine', 2, 3);
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (2, 77522, 'Jatri', 2, 4);
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (3, 41463, 'Devpulse', 1, 2);
@@ -51,11 +51,10 @@ insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (8, 877, 'Twinte', 2, 2);
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (9, 33473, 'Photobug', 1, 4);
 insert into project2.accounts (id, balance, nickname, fk_account_type, fk_users_id) values (10, 56731, 'Twiyo', 2, 2);
-insert into project2.accounts (balance, nickname, fk_account_type, fk_users_id) values (400, 'checking', 2, 4);
 
 update project2.accounts set balance = 656 where nickname = 'Jatri';
 
-insert into project2.account_type (type) values ('Savings'), ('Checking'), ('Credit');
+
 
 create table project2.transactions(
 id serial primary key,
@@ -77,16 +76,12 @@ select * from project2.transactions t where from_account_id = 4;
 
 select * from users join accounts a on users.id = a.fk_users_id where users.id = 4;
 
-
-SELECT t.id, t.date, t.from_account_id, t.to_account_id, t.total_amount, t.note  FROM transactions t join accounts a on a.id = t.from_account_id join users u on u.id = a.fk_users_id where u.id =;
-
-select * from allTransactions(4)
-
+select * from allTransactions(4);
 
 ------------------Functions, Queries, and Procedures-------------------
 --To transfer money between accounts
 --create or replace
-drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500));
 
 create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
 language plpgsql
@@ -106,10 +101,10 @@ begin
 	end if;
 	commit;
 end;
-$$
+$$;
 
 --See all transactions for a user
-drop function if exists allTransactions(user_id integer)
+drop function if exists allTransactions(user_id integer);
 
 create function allTransactions(user_id integer)
 returns table
