@@ -1,5 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { useAppSelector } from '../shared/hooks';
+import { selectUser } from '../shared/UserSlicer';
 import Button from './Button';
 import Form from './Form';
 const StyledDiv = styled.div`
@@ -58,6 +61,18 @@ const StyledDiv = styled.div`
   }
 `;
 const Hero = () => {
+  // let localUser = localStorage.getItem('user');
+
+  let user;
+  // if (localUser) {
+  //   user = JSON.parse(localUser);
+  // }
+
+  let User = useAppSelector(selectUser);
+  if (User != null) {
+    user = User;
+  }
+
   return (
     <StyledDiv>
       <div className='bonusOffer'>
@@ -67,15 +82,25 @@ const Hero = () => {
       </div>
       <div className='login'>
         <Form>
-          <h3>Welcome</h3>
-          <Button>
-            <Link to='/signin'>Sign in</Link>
-          </Button>
+          <h3>Welcome{user ? user.username : ''}</h3>
+          {user ? (
+            ''
+          ) : (
+            <Button>
+              <Link to='/signin'>Sign in</Link>
+            </Button>
+          )}
+
+          {user ? (
+            ''
+          ) : (
+            <p>
+              Not enrolled? <Link to='/signup'>Sign up now.</Link>
+            </p>
+          )}
           <p>
-            Not enrolled? <Link to='/signup'>Sign up now.</Link>
-          </p>
-          <p>
-            New to SkyBank? <Link to='/openaccount'>Open Account</Link>
+            {user ? '' : 'New to SkyBank?'}{' '}
+            <Link to='/openaccount'>Open Account</Link>
           </p>
         </Form>
       </div>
