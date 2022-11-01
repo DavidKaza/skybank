@@ -40,9 +40,11 @@ const SignIn = () => {
   const dispatch = useAppDispatch();
 
   let navigateProfile = useNavigate();
-  if (user.id !== 0) {
-    navigateProfile('/profile');
-  }
+  useEffect(() => {
+    if (user.id !== 0) {
+      navigateProfile('/profile');
+    }
+  }, [user, navigateProfile]);
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
