@@ -35,8 +35,12 @@ const StyledMain = styled.main`
   }
 
   .name {
-    font-size: 30px;
+    font-size: 1rem;
+    padding: 10px;
     font-weight: bold;
+    background-color: var(--color2);
+    color: var(--textColor2);
+    margin: 10px;
   }
 
   .balance {

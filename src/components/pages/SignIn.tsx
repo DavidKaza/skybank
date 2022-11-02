@@ -11,7 +11,7 @@ const StyledMain = styled.main`
   h1 {
     padding: 20px;
     background-color: var(--color1);
-    color: #fff;
+    color: var(--textColor1);
     width: 100%;
   }
   .login-container {

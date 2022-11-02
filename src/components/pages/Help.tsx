@@ -3,10 +3,11 @@ import styled from 'styled-components';
 
 const StyledMain = styled.main`
   h3 {
-    background-color: var(--color1);
     color: var(--textColor1);
+    transition: all 0.4s;
   }
   background-color: var(--color3);
+  transition: all 0.4s;
   color: #fff;
   .topics-container {
     color: var(--textColor1);
@@ -17,6 +18,7 @@ const StyledMain = styled.main`
     column-gap: 50px;
     row-gap: 50px;
     padding: 20px;
+    transition: all 0.4s;
     h3 {
       text-align: center;
     }
@@ -29,6 +31,7 @@ const StyledMain = styled.main`
         padding: 20px;
         text-align: left;
         color: var(--textColor1);
+        transition: all 0.4s;
       }
       ul {
         list-style-type: none;
@@ -39,6 +42,7 @@ const StyledMain = styled.main`
           a {
             text-decoration: none;
             color: var(--textColor2);
+            transition: all 0.4s;
           }
         }
       }

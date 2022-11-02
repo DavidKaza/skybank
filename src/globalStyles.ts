@@ -24,6 +24,7 @@ a{
     font-size:16px;
     background-color:var(--color1);
     color:var(--textColor1);
+    transition:all 0.4s;
   }
   h1,h2,h3,h4,h5,h6{
     padding:10px 0;

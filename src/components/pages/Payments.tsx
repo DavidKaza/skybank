@@ -14,11 +14,17 @@ const StyledMain = styled.main`
     padding: 20px;
     background-color: var(--color3);
     color: var(--textColor3);
+    transition: all 0.4s;
   }
 
   .name {
-    font-size: 30px;
+    font-size: 1rem;
+    padding: 10px;
     font-weight: bold;
+    background-color: var(--color2);
+    color: var(--textColor2);
+    transition: all 0.4s;
+    margin: 10px;
   }
 
   .balance {

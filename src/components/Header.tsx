@@ -11,6 +11,7 @@ export const StyledHeader = styled.header`
   background-color: var(--color1);
   position: sticky;
   top: 0;
+  transition: all 0.4s;
   nav {
     color: var(--textColor3);
     div.upperNav {
@@ -27,14 +28,15 @@ export const StyledHeader = styled.header`
         width: 2rem;
         height: 2rem;
         border-radius: 50%;
-        border: 1px solid var(--color1);
         background-color: transparent;
         overflow: hidden;
+
         img {
           height: 100%;
           width: 100%;
           object-fit: cover;
           object-position: var(--icon-position);
+          transition: all 0.5s;
         }
       }
 
@@ -45,6 +47,7 @@ export const StyledHeader = styled.header`
           padding: 10px;
           text-decoration: none;
           color: var(--textColor2);
+          transition: color 0.4s;
         }
       }
       ul {
@@ -56,12 +59,14 @@ export const StyledHeader = styled.header`
             padding: 10px;
             text-decoration: none;
             color: var(--textColor2);
+            transition: color 0.4s;
           }
           button {
             font-size: 1rem;
             width: auto;
             background: transparent;
-            color: var(--textColor3);
+            color: var(--textColor2);
+            transition: color 0.4s;
           }
         }
       }
@@ -73,6 +78,7 @@ export const StyledHeader = styled.header`
       justify-content: space-evenly;
       padding: 10px;
       background-color: var(--color2);
+      transition: background-color 0.4s;
       li {
         a {
           color: var(--textColor1);
@@ -109,7 +115,7 @@ const Header: React.FC = () => {
       document.documentElement.style.setProperty('--color2', '#623d26');
       document.documentElement.style.setProperty('--color3', '#95631e');
       document.documentElement.style.setProperty('--textColor1', '#ffffff');
-      document.documentElement.style.setProperty('--textColor2', '#74bde1');
+      document.documentElement.style.setProperty('--textColor2', '#e1dd74');
       document.documentElement.style.setProperty('--textcolor3', '#000000');
       document.documentElement.style.setProperty('--icon-position', 'left');
     }
