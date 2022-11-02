@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -103,6 +103,11 @@ const Payments = () => {
       .then((response) => {
         console.log(response);
         navigateProfile('/Accounts');
+      })
+      .catch((error: AxiosError): void => {
+        if (error.response) {
+          alert(error.response.data);
+        }
       });
   }
 

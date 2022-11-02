@@ -1,5 +1,7 @@
 package com.revature.controller;
 
+import com.revature.exception.AccountDoesntExistException;
+import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
@@ -18,39 +20,44 @@ public class TransactionController {
 
     public void mapEndpoints(Javalin app) {
 
-
         // Endpoint is for user to "request" transaction
         app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
         app.post("/users/{userId}/transfer", (ctx) -> {
 
-                Transfer transferAdded = ctx.bodyAsClass(Transfer.class);
-                AccountService transferAccount = new AccountService();
+            Transfer transferAdded = ctx.bodyAsClass(Transfer.class);
+            AccountService transferAccount = new AccountService();
 
-                try {
-                    HttpSession httpSession = ctx.req.getSession();
-                    User user = (User) httpSession.getAttribute("user");
+            try {
+                HttpSession httpSession = ctx.req.getSession();
+                User user = (User) httpSession.getAttribute("user");
 
+                if (user != null) { // Check if logged in
 
-                    if (user != null) { // Check if logged in
+                    int userId = Integer.parseInt(ctx.pathParam("userId"));
+                    if (user.getId() == userId) {
+                        // change this up so that it checks if that account belongs to the user, not
+                        // comparing it to the user id
+                        transactionService.getTransfer(transferAdded, userId);
 
-                        int userId = Integer.parseInt(ctx.pathParam("userId"));
-                        if (user.getId() == userId) {
-                            //change this up so that it checks if that account belongs to the user, not comparing it to the user id
-                            transactionService.getTransfer(transferAdded, userId);
-
-                        } else {
-                            ctx.result("You must submit transactions for yourself");
-                            ctx.status(401);
-                        }
                     } else {
-                        ctx.result("You are not logged in!");
+                        ctx.result("You must submit transactions for yourself");
                         ctx.status(401);
                     }
-                } catch (TransferingMoneyMustIncludeYouException t) {
-
-                    ctx.result(t.getMessage());
+                } else {
+                    ctx.result("You are not logged in!");
                     ctx.status(401);
                 }
+            } catch (TransferingMoneyMustIncludeYouException t) {
+
+                ctx.result(t.getMessage());
+                ctx.status(400);
+            } catch (AmountMustBeGreaterThan0Exception a) {
+                ctx.result(a.getMessage());
+                ctx.status(400);
+            } catch (AccountDoesntExistException a) {
+                ctx.result(a.getMessage());
+                ctx.status(400);
+            }
         });
 
         // Endpoint is for user to view all transactions they're involved with
