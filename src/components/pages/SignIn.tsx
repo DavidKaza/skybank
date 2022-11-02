@@ -10,7 +10,7 @@ import Form from '../Form';
 const StyledMain = styled.main`
   h1 {
     padding: 20px;
-    background-color: var(--primary);
+    background-color: var(--color1);
     color: #fff;
     width: 100%;
   }

@@ -2,14 +2,14 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const StyledMain = styled.main`
-  h4 {
-    background-color: var(--primary);
-    color: #fff;
+  h3 {
+    background-color: var(--color1);
+    color: var(--textColor1);
   }
-  background-color: var(--primaryDark);
+  background-color: var(--color3);
   color: #fff;
   .topics-container {
-    color: var(--primaryDark);
+    color: var(--textColor1);
     margin: auto;
     max-width: 1200px;
     display: grid;
@@ -22,13 +22,13 @@ const StyledMain = styled.main`
     }
     div {
       padding: 10px 10px 20px 50px;
-      background-color: #fff;
+      background-color: var(--color1);
       border-radius: 20px;
       box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-      h5 {
+      h3 {
         padding: 20px;
         text-align: left;
-        color: var(--primary);
+        color: var(--textColor1);
       }
       ul {
         list-style-type: none;
@@ -38,7 +38,7 @@ const StyledMain = styled.main`
           line-height: 1.5rem;
           a {
             text-decoration: none;
-            color: var(--primary-dark);
+            color: var(--textColor2);
           }
         }
       }
@@ -51,8 +51,8 @@ const StyledMain = styled.main`
     row-gap: 50px;
     text-align: left;
     padding: 20px;
-    background-color: #fff;
-    color: var(--primaryDark);
+    background-color: var(--color1);
+    color: var(--textColor1);
     .faq {
       padding: 30px;
       border-bottom: 2px solid #ddd;
@@ -63,13 +63,13 @@ const StyledMain = styled.main`
 const Help = () => {
   return (
     <StyledMain>
-      <h4>SkyBank Help Center</h4>
+      <h1>SkyBank Help Center</h1>
 
       <section className='topics'>
-        <h3>Help Topics</h3>
+        <h2>Help Topics</h2>
         <div className='topics-container'>
           <div>
-            <h5>Security & Privacy</h5>
+            <h3>Security & Privacy</h3>
             <ul>
               <li>
                 <Link to='/signin'>Alerts setup</Link>
@@ -86,7 +86,7 @@ const Help = () => {
             </ul>
           </div>
           <div>
-            <h5>Card Management</h5>
+            <h3>Card Management</h3>
             <ul>
               <li>
                 <Link to='/signin'>Activate card</Link>
@@ -106,7 +106,7 @@ const Help = () => {
             </ul>
           </div>
           <div>
-            <h5>Account Management</h5>
+            <h3>Account Management</h3>
             <ul>
               <li>
                 <Link to='/signin'>Account balance</Link>
@@ -129,7 +129,7 @@ const Help = () => {
             </ul>
           </div>
           <div>
-            <h5>Digital Services</h5>
+            <h3>Digital Services</h3>
             <ul>
               <li>
                 <Link to='/signin'>Digital banking guided demos</Link>
@@ -149,7 +149,7 @@ const Help = () => {
             </ul>
           </div>
           <div>
-            <h5>Payments & Transfers</h5>
+            <h3>Payments & Transfers</h3>
             <ul>
               <li>
                 <Link to='/signin'>Bill Pay</Link>
@@ -166,7 +166,7 @@ const Help = () => {
             </ul>
           </div>
           <div>
-            <h5>Tools</h5>
+            <h3>Tools</h3>
             <ul>
               <li>
                 <Link to='/signin'>Exchange foreign currency</Link>
@@ -191,9 +191,9 @@ const Help = () => {
         <h3>FAQs</h3>
         <div className='faq-container'>
           <div className='faq'>
-            <h5 className='question'>
+            <h3 className='question'>
               I'm having trouble accessing my account online. What should I do?
-            </h5>
+            </h3>
             <div className='answer'>
               <p>
                 To regain online access, select 'Forgot Password?' Follow the
@@ -204,9 +204,9 @@ const Help = () => {
             </div>
           </div>
           <div className='faq'>
-            <h5 className='question'>
+            <h3 className='question'>
               How do I manage a dispute on my account?
-            </h5>
+            </h3>
             <div className='answer'>
               <p>
                 TTo manage a dispute on your credit card account, visit the
@@ -222,7 +222,7 @@ const Help = () => {
             </div>
           </div>
           <div className='faq'>
-            <h5 className='question'>Where can I find my transactions?</h5>
+            <h3 className='question'>Where can I find my transactions?</h3>
             <div className='answer'>
               <p>
                 Find your recent transactions in the bottom half of the Account
@@ -232,13 +232,13 @@ const Help = () => {
             </div>
           </div>
           <div className='faq'>
-            <h5 className='question'>How do I activate a card?</h5>
+            <h3 className='question'>How do I activate a card?</h3>
             <div className='answer'>
               <p>Activate your card online.</p>
             </div>
           </div>
           <div className='faq'>
-            <h5 className='question'>What if my card was lost or stolen?</h5>
+            <h3 className='question'>What if my card was lost or stolen?</h3>
             <div className='answer'>
               <p>
                 Deactivate your card, check your recent account activity,
@@ -247,9 +247,9 @@ const Help = () => {
             </div>
           </div>
           <div className='faq'>
-            <h5 className='question'>
+            <h3 className='question'>
               What do I need to apply for a SkyBank account online?
-            </h5>
+            </h3>
             <div className='answer'>
               <p>To apply for an account online, you need to:</p>
               <ul>

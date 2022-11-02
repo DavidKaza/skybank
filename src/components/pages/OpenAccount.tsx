@@ -10,8 +10,8 @@ import Form from '../Form';
 const StyledMain = styled.main`
   h1 {
     padding: 20px;
-    background-color: var(--primary);
-    color: #fff;
+    background-color: var(--color3);
+    color: var(--textColor3);
   }
   p {
     padding: 20px;
@@ -78,8 +78,7 @@ const OpenAccount = () => {
       })
       .catch((e) => {
         alert(e.response.data);
-      }
-      );
+      });
   }
   function onSubmitNewUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();

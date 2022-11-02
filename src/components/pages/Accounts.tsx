@@ -9,8 +9,8 @@ import getAll from '../AllTransactions';
 const StyledMain = styled.main`
   h1 {
     padding: 20px;
-    background-color: var(--primary);
-    color: #fff;
+    background-color: var(--color3);
+    color: var(--color1);
   }
   .table {
     margin-left: auto;
@@ -24,11 +24,14 @@ const StyledMain = styled.main`
   }
 
   .columns {
-    background-color: #1b87ed;
+    background-color: var(--color3);
+    color: var(--textColor3);
   }
-
+  tr {
+    background-color: var(--color1);
+  }
   tr:nth-child(even) {
-    background-color: #c0c0c0;
+    background-color: var(--color2);
   }
 
   .name {
