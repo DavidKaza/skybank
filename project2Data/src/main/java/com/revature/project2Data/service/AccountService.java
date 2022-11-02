@@ -41,6 +41,6 @@ public class AccountService {
         newAccount.getUser().setId(user.getId());
 
         //Save the new Pokemon
-        return userRepository.save(newAccount);
+        return accountRepository.save(newAccount);
     }
 }

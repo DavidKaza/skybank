@@ -21,21 +21,36 @@ const UpdateProfile = () => {
 
     const [info, setInfo] = useState(
         {
-            id: 0,
             firstName: user.firstName,
             middleInitial: user.middleInitial,
             lastName: user.lastName,
-            ssn: user.ssn,
             email: user.email,
             phoneNumber: user.phoneNumber,
             country: user.country,
             state: user.state,
             city: user.city,
-            zipcode: user.zipcode,
-            username: user.username,
-            password: user.password
+            zipcode: user.zipcode
         }
     );
+
+    useEffect(() => {
+      const User = window.localStorage.getItem('user');
+      let user;
+      if (User) {
+        user = JSON.parse(User);
+      }
+      setInfo({
+            firstName: user.firstName,
+            middleInitial: user.middleInitial,
+            lastName: user.lastName,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            country: user.country,
+            state: user.state,
+            city: user.city,
+            zipcode: user.zipcode
+      })
+    },[])
 
     let navigateProfile = useNavigate();
 
