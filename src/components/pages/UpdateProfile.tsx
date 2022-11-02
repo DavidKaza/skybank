@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { useAppSelector } from "../../shared/hooks";
-import { selectUser } from "../../shared/UserSlicer";
+import { useAppDispatch, useAppSelector } from "../../shared/hooks";
+import { selectUser, setUser } from "../../shared/UserSlicer";
 import Button from "../Button";
 import Form from '../Form';
 
@@ -16,17 +16,24 @@ const StyledMain = styled.main`
 `;
 const UpdateProfile = () => {
 
+    const user = useAppSelector(selectUser);
+    const dispatch = useAppDispatch();
+
     const [info, setInfo] = useState(
         {
-            firstName: "",
-            middleInitial: "",
-            lastName: "",
-            email: "",
-            phoneNumber: "",
-            country: "",
-            state: "",
-            city: "",
-            zipcode: ""
+            id: 0,
+            firstName: user.firstName,
+            middleInitial: user.middleInitial,
+            lastName: user.lastName,
+            ssn: user.ssn,
+            email: user.email,
+            phoneNumber: user.phoneNumber,
+            country: user.country,
+            state: user.state,
+            city: user.city,
+            zipcode: user.zipcode,
+            username: user.username,
+            password: user.password
         }
     );
 
@@ -44,7 +51,7 @@ const UpdateProfile = () => {
 function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     axios
-    .patch('`http://localhost:8080', {
+    .patch(`http://localhost:8080/update/${user.id}`, {
             
             firstName: info.firstName,
             middleInitial: info.middleInitial,
@@ -58,6 +65,8 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
     })
     .then((response) => {
         console.log(response);
+        dispatch(setUser(response.data));
+        window.localStorage.setItem('user', JSON.stringify(response.data));
         navigateProfile('/profile');
     });
 };
@@ -65,6 +74,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
     return (
         <StyledMain>
       <h1>Update Profile</h1>
+      <p>Please fill out only the information you want to change</p>
       <Form method='patch' onSubmit={onSubmitInfo}> 
         <label htmlFor='firstName'>First Name</label>
         <input
@@ -72,6 +82,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.firstName}
           name='firstName'
           type='text'
+          placeholder={info.firstName}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='middleInitial'>Middle Initial</label>
@@ -80,6 +91,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.middleInitial}
           name='middleInitial'
           type='text'
+          placeholder={info.middleInitial}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='lastName'>Last Name</label>
@@ -88,6 +100,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.lastName}
           name='lastName'
           type='text'
+          placeholder={info.lastName}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='email'>Email Address</label>
@@ -96,6 +109,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.email}
           name='email'
           type='text'
+          placeholder={info.email}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='phoneNumber'>Phone Number</label>
@@ -104,6 +118,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.phoneNumber}
           name='phoneNumber'
           type='text'
+          placeholder={info.phoneNumber}
           onChange={handleTransferInputChange}
         ></input>
          <label htmlFor='country'>Country</label>
@@ -112,6 +127,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.country}
           name='country'
           type='text'
+          placeholder={info.country}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='state'>State</label>
@@ -120,6 +136,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.state}
           name='state'
           type='text'
+          placeholder={info.state}
           onChange={handleTransferInputChange}
         ></input>
         <label htmlFor='city'>City</label>
@@ -128,6 +145,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.city}
           name='city'
           type='text'
+          placeholder={info.city}
           onChange={handleTransferInputChange}
         ></input>
          <label htmlFor='zipcode'>Zipcode</label>
@@ -136,6 +154,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
           value={info.zipcode}
           name='zipcode'
           type='text'
+          placeholder={info.zipcode}
           onChange={handleTransferInputChange}
         ></input>
         <Button className='span2'>
