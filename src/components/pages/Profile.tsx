@@ -7,22 +7,21 @@ import { StyledHeader } from '../Header';
 import UpdateProfile from './UpdateProfile';
 
 const StyledMain = styled.main`
-h1 {
-  padding: 20px;
-  background-color: var(--primary);
-  color: #fff;
-}
-.table {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  text-align: center;
-  border-bottom: 1px solid;
-}
-th {
-  width: 25%;
-}
-
+  h1 {
+    padding: 20px;
+    background-color: var(--color3);
+    color: #fff;
+  }
+  .table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    border-bottom: 1px solid;
+  }
+  th {
+    width: 25%;
+  }
 .button {
   background-color: var(--primary);
 border: none;

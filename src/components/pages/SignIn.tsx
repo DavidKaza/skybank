@@ -10,8 +10,8 @@ import Form from '../Form';
 const StyledMain = styled.main`
   h1 {
     padding: 20px;
-    background-color: var(--primary);
-    color: #fff;
+    background-color: var(--color1);
+    color: var(--textColor1);
     width: 100%;
   }
   .login-container {

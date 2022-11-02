@@ -4,8 +4,8 @@ import styled from 'styled-components';
 const StyledFooter = styled.footer`
   padding: 20px;
   position: relative;
-  background-color: var(--primaryMedium);
-  color: #fff;
+  background-color: var(--color2);
+  color: var(--textColor1);
   text-align: center;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -14,8 +14,8 @@ const StyledFooter = styled.footer`
     list-style-type: none;
     text-align: left;
     margin: auto;
-    a {
-      color: #fff;
+    
+      color: var(--textColor1);
       text-decoration: none;
     }
   }

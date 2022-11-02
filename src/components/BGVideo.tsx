@@ -9,7 +9,7 @@ const StyledVideo = styled.div`
   left: 0;
   z-index: -1;
   .overlay {
-    background-color: #ffffff;
+    background-color: var(--color1);
     position: absolute;
     top: 0;
     left: 0;

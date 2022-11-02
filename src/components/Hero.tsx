@@ -7,7 +7,7 @@ import Button from './Button';
 import Form from './Form';
 const StyledDiv = styled.div`
   max-height: 800px;
-  background-color: var(--primary);
+  background-color: var(--color3);
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
@@ -28,14 +28,14 @@ const StyledDiv = styled.div`
     font-size: 2rem;
   }
   .bonusOffer {
-    color: #fff;
+    color: var(--textColor1);
   }
   p {
     padding: 20px;
     margin: 0;
   }
   .login {
-    color: #fff;
+    color: var(--textColor1);
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -43,10 +43,10 @@ const StyledDiv = styled.div`
     p {
       padding: 5px;
       a {
-        color: var(--primary);
+        color: var(--textColor2);
         &:hover {
           text-shadow: 1px 1px 4px#d6d6d6;
-          color: #095296eb;
+          color: var(--textColor1);
         }
       }
     }

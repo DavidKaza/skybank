@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -12,13 +12,19 @@ import { IUserModel } from '../models/UserModel';
 const StyledMain = styled.main`
   h1 {
     padding: 20px;
-    background-color: var(--primary);
-    color: #fff;
+    background-color: var(--color3);
+    color: var(--textColor3);
+    transition: all 0.4s;
   }
 
   .name {
-    font-size: 30px;
+    font-size: 1rem;
+    padding: 10px;
     font-weight: bold;
+    background-color: var(--color2);
+    color: var(--textColor2);
+    transition: all 0.4s;
+    margin: 10px;
   }
 
   .balance {
@@ -104,8 +110,10 @@ const Payments = () => {
         console.log(response);
         navigateProfile('/Accounts');
       })
-      .catch((e) => {
-        alert(e.response.data);
+      .catch((error: AxiosError): void => {
+        if (error.response) {
+          alert(error.response.data);
+        }
       });
   }
 
