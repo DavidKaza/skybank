@@ -11,6 +11,8 @@ import com.revature.service.TransactionService;
 import io.javalin.Javalin;
 
 import javax.servlet.http.HttpSession;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class TransactionController {
@@ -53,6 +55,9 @@ public class TransactionController {
                     ctx.status(400);
                 } catch (AmountMustBeGreaterThan0Exception a) {
                     ctx.result(a.getMessage());
+                    ctx.status(400);
+                } catch(SQLException s) {
+                    ctx.result(s.getMessage());
                     ctx.status(400);
                 }
         });
