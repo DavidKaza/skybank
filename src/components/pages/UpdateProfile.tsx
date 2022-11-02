@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Form } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector } from "../../shared/hooks";
 import { selectUser } from "../../shared/UserSlicer";
 import Button from "../Button";
+import Form from '../Form';
 
 const StyledMain = styled.main`
   h1 {
@@ -13,7 +14,6 @@ const StyledMain = styled.main`
     color: #fff;
   }
 `;
-
 const UpdateProfile = () => {
 
     const [info, setInfo] = useState(
@@ -29,6 +29,8 @@ const UpdateProfile = () => {
             zipcode: ""
         }
     );
+
+    let navigateProfile = useNavigate();
 
 
     function handleTransferInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -56,14 +58,14 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
     })
     .then((response) => {
         console.log(response);
+        navigateProfile('/profile');
     });
 };
-// onSubmit={onSubmitInfo}
     
     return (
         <StyledMain>
       <h1>Update Profile</h1>
-      {/* <Form method='patch' onSubmit={onSubmitInfo}> 
+      <Form method='patch' onSubmit={onSubmitInfo}> 
         <label htmlFor='firstName'>First Name</label>
         <input
           id='firstName'
@@ -123,7 +125,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
         <label htmlFor='city'>City</label>
         <input
           id='city'
-          value={info.state}
+          value={info.city}
           name='city'
           type='text'
           onChange={handleTransferInputChange}
@@ -131,7 +133,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
          <label htmlFor='zipcode'>Zipcode</label>
         <input
           id='zipcode'
-          value={info.state}
+          value={info.zipcode}
           name='zipcode'
           type='text'
           onChange={handleTransferInputChange}
@@ -139,7 +141,7 @@ function onSubmitInfo(e: React.FormEvent<HTMLFormElement>) {
         <Button className='span2'>
           Update Info
         </Button>
-        </Form> */}
+        </Form>
         </StyledMain>
     );
 };

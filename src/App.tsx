@@ -39,7 +39,7 @@ function App() {
           <Route path='/help' element={<Help />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signIn' element={<SignIn />} />
-          <Route path='updateprofile' element={<UpdateProfile />}/>
+          <Route path='/updateprofile' element={<UpdateProfile />}/>
         </Routes>
         <Footer />
       </BrowserRouter>

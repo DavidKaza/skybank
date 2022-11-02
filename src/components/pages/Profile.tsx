@@ -1,4 +1,4 @@
-import { Link, Route, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
@@ -73,7 +73,9 @@ const Profile = () => {
             </tr>
           </tbody>
         </table>
-          <div className='button'><Link to={'/updateprofile'}>Update Profile</Link></div>
+          <div className='button'>
+            <Link to={'/updateprofile'}>Update Profile</Link>
+            </div>
       </div>
     </StyledMain>
   );
