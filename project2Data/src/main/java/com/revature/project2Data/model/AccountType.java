@@ -1,7 +1,5 @@
 package com.revature.project2Data.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
@@ -15,11 +13,11 @@ public class AccountType {
     private int id;
     private String type;
 
-    @OneToMany(mappedBy = "account_type", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "account_type", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<AccountType> account_type;
 
-    public AccountType(){}
+    public AccountType() {
+    }
 
     public AccountType(int id, String type) {
 
@@ -45,8 +43,10 @@ public class AccountType {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         AccountType that = (AccountType) o;
         return id == that.id && Objects.equals(type, that.type);
     }

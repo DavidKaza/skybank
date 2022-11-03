@@ -3,10 +3,10 @@ package com.revature.repository;
 import com.revature.model.User;
 
 import java.sql.*;
+
 public class UserRepository {
 
-
-    //Register
+    // Register
     public User addUser(User user) throws SQLException {
 
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
@@ -27,28 +27,32 @@ public class UserRepository {
             pstmt.setString(11, user.getUsername());
             pstmt.setString(12, user.getPassword());
 
-            int numberOfRecordsAdded = pstmt.executeUpdate(); // returns an int
+            pstmt.executeUpdate(); // returns an int
 
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
             int id = rs.getInt(1);
 
-            return new User(id, user.getFirstName(), user.getMiddleInitial(), user.getLastName(), user.getSsn(), user.getEmail(), user.getPhoneNumber(), user.getCountry(), user.getState(), user.getCity(), user.getZipcode(), user.getUsername(), user.getPassword());
+            return new User(id, user.getFirstName(), user.getMiddleInitial(), user.getLastName(), user.getSsn(),
+                    user.getEmail(), user.getPhoneNumber(), user.getCountry(), user.getState(), user.getCity(),
+                    user.getZipcode(), user.getUsername(), user.getPassword());
         }
 
     }
 
-    public User getUserByUsername(String username) throws SQLException{
+    public User getUserByUsername(String username) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             String sql = "SELECT * FROM project2.users as u WHERE u.username = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setString(1, username);
 
-            ResultSet rs = pstmt.executeQuery(); // ResultSet represents a temporary table that contains all data that we have
+            ResultSet rs = pstmt.executeQuery(); // ResultSet represents a temporary table that contains all data that
+                                                 // we have
             // queried for
 
-            if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next" row AND iterates to the next row
+            if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next"
+                             // row AND iterates to the next row
 
                 int id = rs.getInt("id");
                 String fn = rs.getString("first_name");
@@ -72,17 +76,19 @@ public class UserRepository {
         }
     }
 
-    public User getUserBySsn(String ssn) throws SQLException{
+    public User getUserBySsn(String ssn) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             String sql = "SELECT * FROM project2.users as u WHERE u.ssn = ?";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setString(1, ssn);
 
-            ResultSet rs = pstmt.executeQuery(); // ResultSet represents a temporary table that contains all data that we have
+            ResultSet rs = pstmt.executeQuery(); // ResultSet represents a temporary table that contains all data that
+                                                 // we have
             // queried for
 
-            if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next" row AND iterates to the next row
+            if (rs.next()) { // returns a boolean indicating whether there is a record or not for the "next"
+                             // row AND iterates to the next row
 
                 int id = rs.getInt("id");
                 String fn = rs.getString("first_name");
@@ -106,7 +112,7 @@ public class UserRepository {
         }
     }
 
-    //login
+    // login
     public User getUserByUsernameAndPassword(String username, String password) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             String sql = "SELECT * FROM project2.users as u WHERE u.username = ? AND u.password = ?";
@@ -140,4 +146,3 @@ public class UserRepository {
         }
     }
 }
-

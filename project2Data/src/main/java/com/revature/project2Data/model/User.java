@@ -1,14 +1,12 @@
 package com.revature.project2Data.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "users")
-public  class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,14 +24,15 @@ public  class User {
     private String username;
     private String password;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<User> user;
 
+    public User() {
+    }
 
-    public User(){}
-
-    public User(int id, String firstName, String middleInitial, String lastName, String ssn, String email, String phoneNumber, String country, String state, String city, String zipcode, String username, String password) {
+    public User(int id, String firstName, String middleInitial, String lastName, String ssn, String email,
+            String phoneNumber, String country, String state, String city, String zipcode, String username,
+            String password) {
         this.id = id;
         this.firstName = firstName;
         this.middleInitial = middleInitial;
@@ -156,15 +155,24 @@ public  class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         User user = (User) o;
-        return id == user.id && Objects.equals(firstName, user.firstName) && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName) && Objects.equals(ssn, user.ssn) && Objects.equals(email, user.email) && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(country, user.country) && Objects.equals(state, user.state) && Objects.equals(city, user.city) && Objects.equals(zipcode, user.zipcode) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return id == user.id && Objects.equals(firstName, user.firstName)
+                && Objects.equals(middleInitial, user.middleInitial) && Objects.equals(lastName, user.lastName)
+                && Objects.equals(ssn, user.ssn) && Objects.equals(email, user.email)
+                && Objects.equals(phoneNumber, user.phoneNumber) && Objects.equals(country, user.country)
+                && Objects.equals(state, user.state) && Objects.equals(city, user.city)
+                && Objects.equals(zipcode, user.zipcode) && Objects.equals(username, user.username)
+                && Objects.equals(password, user.password);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, middleInitial, lastName, ssn, email, phoneNumber, country, state, city, zipcode, username, password);
+        return Objects.hash(id, firstName, middleInitial, lastName, ssn, email, phoneNumber, country, state, city,
+                zipcode, username, password);
     }
 
     @Override

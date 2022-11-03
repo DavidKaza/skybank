@@ -78,7 +78,7 @@ export const StyledHeader = styled.header`
       justify-content: space-evenly;
       padding: 10px;
       background-color: var(--color2);
-      transition: background-color 0.4s;
+      transition: all 0.4s;
       li {
         a {
           color: var(--textColor1);
@@ -134,9 +134,6 @@ const Header: React.FC = () => {
             </button>
           </div>
 
-          <div className='Logo'>
-            <Link to='/'>SkyNet</Link>
-          </div>
           <ul>
             {user.id ? (
               <div className='user-menu'>

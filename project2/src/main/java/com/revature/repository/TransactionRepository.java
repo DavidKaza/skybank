@@ -3,8 +3,6 @@ package com.revature.repository;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
-import com.revature.model.User;
-
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -15,7 +13,7 @@ public class TransactionRepository {
     public void transfer(Transfer t) throws SQLException {
 
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
-            Statement stmt = connectionObj.createStatement();
+            connectionObj.createStatement();
 
             CallableStatement transfer = connectionObj.prepareCall("call transfer(?, ?, ?, ?)");
             transfer.setInt(1, t.getAmount());
@@ -27,13 +25,13 @@ public class TransactionRepository {
         }
     }
 
-    //list all of your transactions
+    // list all of your transactions
     public List<Transaction> getAllTransactionsForUser(int userId) throws SQLException {
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
 
             List<Transaction> transactions = new ArrayList<>();
 
-            // String sql = "SELECT * FROM transactions WHERE  = ?";
+            // String sql = "SELECT * FROM transactions WHERE = ?";
 
             // PreparedStatement pstmt = connectionObject.prepareStatement(sql);
             CallableStatement cstmt = connectionObject.prepareCall("select * from allTransactions(?)");
@@ -102,8 +100,7 @@ public class TransactionRepository {
                 int at = rs.getInt("fk_account_type");
                 int ui = rs.getInt("fk_users_id");
 
-
-                return new Account (id, bal, nn, at, ui);
+                return new Account(id, bal, nn, at, ui);
             } else {
                 return null;
             }

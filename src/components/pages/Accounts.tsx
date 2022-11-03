@@ -21,11 +21,13 @@ const StyledMain = styled.main`
   }
   th {
     width: 25%;
+    padding: 10px;
   }
 
   .columns {
     background-color: var(--color3);
     color: var(--textColor3);
+    padding: 10px;
   }
   tr {
     background-color: var(--color1);
@@ -33,7 +35,9 @@ const StyledMain = styled.main`
   tr:nth-child(even) {
     background-color: var(--color2);
   }
-
+  td {
+    padding: 10px;
+  }
   .name {
     font-size: 1rem;
     padding: 10px;
