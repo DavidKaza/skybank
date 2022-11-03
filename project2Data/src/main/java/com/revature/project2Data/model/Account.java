@@ -13,9 +13,10 @@ public class Account {
     private float balance;
     private String nickname;
 
-    @ManyToOne
-    @JoinColumn(name = "fk_account_type", nullable = false)
-    private AccountType accountType;
+//    @ManyToOne
+//    @JoinColumn(name="fk_account_type", nullable = false)
+//    private AccountType accountType;
+
 
     @ManyToOne
     @JoinColumn(name = "fk_user_id", nullable = false)
@@ -62,20 +63,28 @@ public class Account {
         this.nickname = nickname;
     }
 
-    public AccountType getAccountType() {
-        return accountType;
-    }
-
-    public void setAccountType(AccountType accountType) {
-        this.accountType = accountType;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Transaction getFromAccount() {
+        return fromAccount;
+    }
+
+    public void setFromAccount(Transaction fromAccount) {
+        this.fromAccount = fromAccount;
+    }
+
+    public Transaction getToAccount() {
+        return toAccount;
+    }
+
+    public void setToAccount(Transaction toAccount) {
+        this.toAccount = toAccount;
     }
 
     @Override
@@ -85,14 +94,16 @@ public class Account {
         if (o == null || getClass() != o.getClass())
             return false;
         Account account = (Account) o;
-        return id == account.id && Float.compare(account.balance, balance) == 0
-                && Objects.equals(nickname, account.nickname) && Objects.equals(accountType, account.accountType)
-                && Objects.equals(user, account.user);
+        
+        return id == account.id && Float.compare(account.balance, balance) == 0 
+                && Objects.equals(nickname, account.nickname) && Objects.equals(user, account.user) 
+                && Objects.equals(fromAccount, account.fromAccount) && Objects.equals(toAccount, account.toAccount);
+
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, balance, nickname, accountType, user);
+        return Objects.hash(id, balance, nickname, user, fromAccount, toAccount);
     }
 
     @Override
@@ -101,8 +112,9 @@ public class Account {
                 "id=" + id +
                 ", balance=" + balance +
                 ", nickname='" + nickname + '\'' +
-                ", accountType=" + accountType +
                 ", user=" + user +
+                ", fromAccount=" + fromAccount +
+                ", toAccount=" + toAccount +
                 '}';
     }
 }

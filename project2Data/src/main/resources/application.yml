@@ -8,7 +8,7 @@ spring:
     hibernate:
       # ddl-auto will configure the initialization step of Hibernate
       # Mostly, it will tell hibernate if you want to re-create the database, or just update database, or do nothing
-      ddl-auto: create-drop # create-drop, create, validate, and update
+      ddl-auto: create # create-drop, create, validate, and update
     show-sql: true
     properties:
       hibernate:
