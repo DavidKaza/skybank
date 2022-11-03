@@ -17,6 +17,7 @@ public class AccountController {
     public void mapEndpoints(Javalin app) {
 
         app.before(ctx -> ctx.header("Access-Control-Allow-Credentials", "true"));
+
         // Endpoint is for user to view own account balance
         app.get("/users/{userId}/balance", (ctx) -> {
             HttpSession httpSession = ctx.req.getSession();

@@ -21,9 +21,11 @@ public class AccountService {
     @Autowired
     private UserRepository userRepository;
 
+
     @Transactional(propagation = Propagation.REQUIRED)
     public Account addAccount(Account newAccount){
 
+        System.out.println(newAccount.toString());
         //We are grabbing the PokemonBox object stored within pokemon object and grabbing its id
         Optional<User> foundUser = userRepository.findById(newAccount.getUser().getId());
         User user;
@@ -41,6 +43,6 @@ public class AccountService {
         newAccount.getUser().setId(user.getId());
 
         //Save the new Pokemon
-        return userRepository.save(newAccount);
+        return accountRepository.save(newAccount);
     }
 }
