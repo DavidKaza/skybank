@@ -26,7 +26,7 @@ public class AuthController {
                 session.setAttribute("user", user);
 
                 ctx.json(user);
-            } catch (InvalidLoginException e){
+            } catch (InvalidLoginException e) {
                 ctx.status(400);
                 ctx.result(e.getMessage());
             }
@@ -40,7 +40,7 @@ public class AuthController {
             ctx.result("Goodbye" + " " + user.getFirstName());
         });
 
-        //register
+        // register
         app.post("/register", (ctx) -> {
             User userToAdd = ctx.bodyAsClass(User.class);
             try {

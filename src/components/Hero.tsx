@@ -14,6 +14,7 @@ const StyledDiv = styled.div`
   justify-items: center;
   justify-content: center;
   margin: 0;
+  transition: all 0.4s;
   h1 {
     font-size: 5rem;
     margin: 0;
@@ -26,9 +27,10 @@ const StyledDiv = styled.div`
   }
   h3 {
     font-size: 2rem;
+    color: var(--textColor2);
   }
   .bonusOffer {
-    color: var(--textColor1);
+    color: var(--textColor3);
   }
   p {
     padding: 20px;
@@ -42,8 +44,11 @@ const StyledDiv = styled.div`
     align-items: center;
     p {
       padding: 5px;
+      color: var(--textColor1);
       a {
         color: var(--textColor2);
+        text-decoration: none;
+        font-weight: bold;
         &:hover {
           text-shadow: 1px 1px 4px#d6d6d6;
           color: var(--textColor1);
@@ -63,13 +68,13 @@ const StyledDiv = styled.div`
 const Hero = () => {
   // let localUser = localStorage.getItem('user');
 
-  let user;
+  let user = null;
   // if (localUser) {
   //   user = JSON.parse(localUser);
   // }
 
   let User = useAppSelector(selectUser);
-  if (User != null) {
+  if (User.id !== 0) {
     user = User;
   }
 
@@ -82,8 +87,8 @@ const Hero = () => {
       </div>
       <div className='login'>
         <Form>
-          <h3>Welcome {user ? user.username : ''}</h3>
-          {user ? (
+          <h3>Welcome{user != null ? user.username : ''}</h3>
+          {user != null ? (
             ''
           ) : (
             <Button>
@@ -91,7 +96,7 @@ const Hero = () => {
             </Button>
           )}
 
-          {user ? (
+          {user != null ? (
             ''
           ) : (
             <p>
@@ -99,7 +104,7 @@ const Hero = () => {
             </p>
           )}
           <p>
-            {user ? '' : 'New to SkyBank?'}{' '}
+            {user != null ? '' : 'New to SkyBank?'}{' '}
             <Link to='/openaccount'>Open Account</Link>
           </p>
         </Form>

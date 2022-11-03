@@ -3,11 +3,9 @@ package com.revature.controller;
 import com.revature.exception.AccountDoesntExistException;
 import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
-import com.revature.model.Account;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 import com.revature.model.User;
-import com.revature.service.AccountService;
 import com.revature.service.TransactionService;
 import io.javalin.Javalin;
 
@@ -27,7 +25,6 @@ public class TransactionController {
         app.post("/users/{userId}/transfer", (ctx) -> {
 
             Transfer transferAdded = ctx.bodyAsClass(Transfer.class);
-            AccountService transferAccount = new AccountService();
 
             try {
                 HttpSession httpSession = ctx.req.getSession();

@@ -73,7 +73,6 @@ const OpenAccount = () => {
         { withCredentials: true }
       )
       .then((resp) => {
-        console.log(resp.data);
         navigateProfile('/Profile');
       })
       .catch((e) => {

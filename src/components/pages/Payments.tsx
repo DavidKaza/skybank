@@ -66,7 +66,6 @@ const Payments = () => {
     if (User) {
       user = JSON.parse(User);
     }
-    console.log(user.id);
 
     for (let field in transaction) {
       setButtonDisabled(false);
