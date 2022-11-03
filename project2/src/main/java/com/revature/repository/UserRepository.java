@@ -145,4 +145,54 @@ public class UserRepository {
             }
         }
     }
+
+    //Update info
+    public User updateUser(User user, int userId) throws SQLException {
+
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+            String sql = "update project2.users set first_name = ?, middle_initial = ?, last_name = ?, email = ?, phone_number = ?, country = ?, state = ?, city = ?, zipcode = ? where project2.users.id = ?";
+
+            PreparedStatement pstmt = connectionObject.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, user.getFirstName());
+            pstmt.setString(2, user.getMiddleInitial());
+            pstmt.setString(3, user.getLastName());
+            pstmt.setString(4, user.getEmail());
+            pstmt.setString(5, user.getPhoneNumber());
+            pstmt.setString(6, user.getCountry());
+            pstmt.setString(7, user.getState());
+            pstmt.setString(8, user.getCity());
+            pstmt.setString(9, user.getZipcode());
+            pstmt.setInt(10, userId);
+
+            pstmt.executeUpdate();
+
+            String sql2 = "select * from project2.users where project2.users.id = ?";
+            PreparedStatement pstmt2 = connectionObject.prepareStatement(sql2);
+            pstmt2.setInt(1, userId);
+
+            ResultSet rs = pstmt2.executeQuery();
+        
+            if (rs.next()) {
+
+                int id = rs.getInt("id");
+                String fn = rs.getString("first_name");
+                String mi = rs.getString("middle_initial");
+                String ln = rs.getString("last_name");
+                String ssn = rs.getString("ssn");
+                String em = rs.getString("email");
+                String pn = rs.getString("phone_number");
+                String ctry = rs.getString("country");
+                String st = rs.getString("state");
+                String cty = rs.getString("city");
+                String zc = rs.getString("zipcode");
+                String un = rs.getString("username");
+                String pw = rs.getString("password");
+
+                return new User(id, fn, mi, ln, ssn, em, pn, ctry, st, cty, zc, un, pw);
+            } else {
+                return null;
+            }
+        }
+    }   
 }

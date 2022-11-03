@@ -1,7 +1,10 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector } from '../../shared/hooks';
 import { selectUser } from '../../shared/UserSlicer';
+import Button from '../Button';
 import { StyledHeader } from '../Header';
+import UpdateProfile from './UpdateProfile';
 
 const StyledMain = styled.main`
   h1 {
@@ -19,11 +22,26 @@ const StyledMain = styled.main`
   th {
     width: 25%;
   }
+.button {
+  background-color: var(--primary);
+border: none;
+width: 200px;
+padding: 5px;
+border-radius: 15px;
+font-size: 1.5rem;
+color: #fff;
+margin: 10px auto;
+display: block;
+&:hover {
+  background-color: var(--primaryMedium);
+}
+text-align: center;
+}
 `;
 
 const Profile = () => {
   const User = useAppSelector(selectUser);
-
+  
   return (
     <StyledMain>
       <div>
@@ -54,6 +72,9 @@ const Profile = () => {
             </tr>
           </tbody>
         </table>
+          <div className='button'>
+            <Link to={'/updateprofile'}>Update Profile</Link>
+            </div>
       </div>
     </StyledMain>
   );

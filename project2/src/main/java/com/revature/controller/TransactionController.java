@@ -10,6 +10,8 @@ import com.revature.service.TransactionService;
 import io.javalin.Javalin;
 
 import javax.servlet.http.HttpSession;
+
+import java.sql.SQLException;
 import java.util.List;
 
 public class TransactionController {
