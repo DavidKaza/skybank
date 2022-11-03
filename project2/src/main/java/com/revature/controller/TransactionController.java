@@ -3,6 +3,7 @@ package com.revature.controller;
 import com.revature.exception.AccountDoesntExistException;
 import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
+import com.revature.model.IncomeExpense;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 import com.revature.model.User;
@@ -74,6 +75,27 @@ public class TransactionController {
                     ctx.json(transactions);
                 } else {
                     ctx.result("You are not logged in as the user you are trying to retrieve your transactions from");
+                    ctx.status(401);
+                }
+            } else {
+                ctx.result("You are not logged in!");
+                ctx.status(401);
+            }
+        });
+
+        app.get("/users/{userId}/expenseincome", (ctx) -> {
+            HttpSession httpSession = ctx.req.getSession();
+
+            User user = (User) httpSession.getAttribute("user");
+
+            if (user != null) { // Check if logged in
+
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                if (user.getId() == userId) {
+                   Object[] all = transactionService.getAllIncomeExpense(userId);
+                   ctx.json(all);
+                } else {
+                    ctx.result("You are not logged in as the user you are trying to retrieve your Income and Expenses from");
                     ctx.status(401);
                 }
             } else {

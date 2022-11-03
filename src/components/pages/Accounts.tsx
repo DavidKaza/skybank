@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../shared/hooks';
 import { selectUser, setUser } from '../../shared/UserSlicer';
 import MakeAll from '../AllAccounts';
+import getAllEI from '../AllIncomeExpense';
 import getAll from '../AllTransactions';
 
 const StyledMain = styled.main`
@@ -63,11 +64,19 @@ const StyledMain = styled.main`
     text-align: center;
     box-sizing: border-box;
   }
+  .income {
+    color: green;
+  }
+
+  .expense {
+    color: red;
+  }
 `;
 
 const Accounts = () => {
   const [accounts, setAccounts] = useState(<div></div>);
   const [transactions, setTransactions] = useState(<tbody></tbody>);
+  const [incomeExpense, setincomeExpense] = useState(<tbody></tbody>);
 
   useEffect(() => {
     const User = window.localStorage.getItem('user');
@@ -90,6 +99,13 @@ const Accounts = () => {
       .then((response) => {
         setTransactions(getAll(response.data));
       });
+      axios
+      .get(`http://localhost:8080/users/${user.id}/expenseincome`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setincomeExpense(getAllEI(response.data[0], response.data[1]));
+      });
   }, []);
 
   return (
@@ -99,6 +115,23 @@ const Accounts = () => {
       </div>
 
       {accounts}
+
+      <div>
+        <h3>Income and Expenses</h3>
+      </div>
+      <div>
+        <table className='table'>
+          <thead>
+            <tr className='columns'>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Entity</th>
+              <th>Account</th>
+            </tr>
+          </thead>
+          {incomeExpense}
+        </table>
+      </div>
 
       <div>
         <h3>Transfers</h3>

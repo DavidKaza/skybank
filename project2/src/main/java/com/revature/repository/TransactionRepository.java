@@ -1,6 +1,7 @@
 package com.revature.repository;
 
 import com.revature.model.Account;
+import com.revature.model.IncomeExpense;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 
@@ -124,6 +125,53 @@ public class TransactionRepository {
                 account.add(id);
             }
             return account;
+        }
+    }
+
+    public Object[] getIncomeExpenses(int userId) throws SQLException {
+        try (Connection connectionObject = ConnectionFactory.createConnection()) {
+
+            CallableStatement cstmt = connectionObject.prepareCall("select * from allexpenses(?)");
+            CallableStatement cstmt2 = connectionObject.prepareCall("select * from allincome(?)");
+
+            cstmt.setInt(1, userId);
+            cstmt2.setInt(1, userId);
+
+            ArrayList<IncomeExpense> income = new ArrayList<>();
+            ArrayList<IncomeExpense> expenses = new ArrayList<>();
+            Object[] all;
+            all = new Object[2];
+
+
+            ResultSet rs = cstmt.executeQuery();
+            while (rs.next()) {
+
+                int id = rs.getInt("id");
+                Timestamp d = rs.getTimestamp("date");
+                String e = rs.getString("entity");
+                float a = rs.getFloat("total_amount");
+                int acc = rs.getInt("fk_account_id");
+
+                IncomeExpense cash = new IncomeExpense(id, d, e, a, acc);
+                income.add(cash);
+            }
+
+            ResultSet rs1 = cstmt2.executeQuery();
+            while (rs1.next()) {
+
+                int id = rs1.getInt("id");
+                Timestamp d = rs1.getTimestamp("date");
+                String e = rs1.getString("entity");
+                float a = rs1.getFloat("total_amount");
+                int acc = rs1.getInt("fk_account_id");
+
+                IncomeExpense loss = new IncomeExpense(id, d, e, a, acc);
+                expenses.add(loss);
+            }
+
+            all[0] = income;
+            all[1] = expenses;
+            return all;
         }
     }
 }

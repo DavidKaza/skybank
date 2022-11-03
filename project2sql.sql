@@ -1,3 +1,5 @@
+drop table if exists income;
+drop table if exists expenses;
 drop table if exists transactions;
 drop table if exists accounts;
 drop table if exists account_type;
@@ -74,6 +76,24 @@ foreign key (from_account_id) references project2.accounts(id),
 foreign key (to_account_id) references project2.accounts(id)
 );
 
+create table project2.income(
+id serial primary key,
+date timestamp not null,
+entity varchar(100) not null,
+total_amount numeric not null,
+fk_account_id integer not null,
+foreign key (fk_account_id) references project2.accounts(id)
+);
+
+create table project2.expenses(
+id serial primary key,
+date timestamp not null,
+entity varchar(100) not null,
+total_amount numeric not null,
+fk_account_id integer not null,
+foreign key (fk_account_id) references project2.accounts(id)
+);
+
 --select * from users;
 --select * from accounts;
 ----To see all sent transactions
@@ -134,7 +154,82 @@ begin
 end;
 $$;
 
+--Income
+drop procedure if exists income(person varchar(100), amount numeric, acc integer);
 
+create procedure income(person varchar(100), amount numeric, acc integer)
+language plpgsql
+as $$
+
+begin 
+			update accounts set balance = balance + amount where id = acc;
+			insert into income (date, entity, total_amount, fk_account_id) values (current_timestamp, person, amount, acc);
+	commit;
+end;
+$$;
+
+--Expense
+drop procedure if exists expenses(person varchar(100), total_amount numeric, acc integer);
+
+create procedure expenses(person varchar(100), amount numeric, acc integer)
+language plpgsql
+as $$
+
+declare pre_transaction numeric;
+
+begin 
+			select balance from accounts into pre_transaction where id = acc;
+		if pre_transaction - amount < 0 then raise 'Insufficient Funds';
+	else
+			update accounts set balance = balance - amount where id = acc;
+			insert into expenses (date, entity, total_amount, fk_account_id) values (current_timestamp, person, amount, acc);
+		end if;
+	commit;
+end;
+$$;
+
+--See all income
+drop function if exists allIncome(user_id integer);
+
+create function allIncome(user_id integer)
+returns table
+(id integer,
+date timestamp,
+entity varchar(100),
+total_amount numeric,
+fk_account_id integer
+)
+language plpgsql
+as 
+$$
+begin
+	return query SELECT i.id, i.date, i.entity, i.total_amount, i.fk_account_id  FROM income i join accounts a on a.id = i.fk_account_id  join users u on u.id = a.fk_users_id where u.id = user_id;
+
+end;
+$$;
+
+--See all expenses
+drop function if exists allExpenses(user_id integer);
+
+create function allExpenses(user_id integer)
+returns table
+(id integer,
+date timestamp,
+entity varchar(100),
+total_amount numeric,
+fk_account_id integer
+)
+language plpgsql
+as 
+$$
+begin
+	return query SELECT e.id, e.date, e.entity, e.total_amount, e.fk_account_id  FROM expenses e join accounts a on a.id = e.fk_account_id  join users u on u.id = a.fk_users_id where u.id = user_id;
+
+end;
+$$;
+
+-- call income('My Job', 1000, 2);
+-- call expenses('Mcdonalds', 100, 4);
 
 --To see all accounts, their type, and their balances for a customer
 select accounts.balance, account_type.type from accounts join account_type on account_type.id = accounts.fk_account_type join users on users.id = accounts.fk_users_id where users.id = 1;
@@ -144,3 +239,5 @@ select transactions.date, total_amount as amount, from_account_id as from, note 
 
 --To see all expenses
 select transactions.date, total_amount as amount, to_account_id as to, note from transactions join accounts on transactions.from_account_id = accounts.id where from_account_id = 1;
+
+
