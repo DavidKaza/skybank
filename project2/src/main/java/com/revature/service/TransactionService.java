@@ -4,6 +4,7 @@ import com.revature.exception.AccountDoesntExistException;
 import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
+import com.revature.model.IncomeExpense;
 import com.revature.model.Transaction;
 import com.revature.model.Transfer;
 import com.revature.repository.TransactionRepository;
@@ -49,5 +50,10 @@ public class TransactionService {
             throw new AccountDoesntExistException("Account doesn't exist!");
         }
 
+    }
+
+    public Object[] getAllIncomeExpense(int userId) throws SQLException {
+        Object[] all = transactionRepository.getIncomeExpenses(userId);
+        return all;
     }
 }
