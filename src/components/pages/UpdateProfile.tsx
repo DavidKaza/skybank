@@ -8,11 +8,11 @@ import Button from "../Button";
 import Form from '../Form';
 
 const StyledMain = styled.main`
-  h1 {
-    padding: 20px;
-    background-color: var(--primary);
-    color: #fff;
-  }
+h1 {
+  padding: 20px;
+  background-color: var(--color3);
+  color: #fff;
+}
 `;
 const UpdateProfile = () => {
 

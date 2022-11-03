@@ -87,7 +87,7 @@ const Hero = () => {
       </div>
       <div className='login'>
         <Form>
-          <h3>Welcome{user != null ? user.username : ''}</h3>
+          <h3>Welcome {user != null ? user.username : ''}</h3>
           {user != null ? (
             ''
           ) : (
