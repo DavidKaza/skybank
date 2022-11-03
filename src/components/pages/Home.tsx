@@ -19,7 +19,7 @@ const StyledMain = styled.main`
       box-shadow: 2px 2px 5px #00000043;
       border-radius: 15px;
       padding: 20px;
-      background-color: #fff;
+      background-color: var(--color1);
       img {
         width: 90%;
         height: 60%;

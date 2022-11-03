@@ -8,7 +8,7 @@ import java.util.List;
 
 public class AccountRepository {
 
-    //list all of your balances
+    // list all of your balances
     public List<Account> getAllBalancesforUser(int fkUserId) throws SQLException {
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
 
@@ -38,7 +38,7 @@ public class AccountRepository {
         }
     }
 
-    //accounts request sent by employee
+    // accounts request sent by employee
     public Account addAccount(Account accounts) throws SQLException {
 
         try (Connection connectionObject = ConnectionFactory.createConnection()) {
@@ -57,7 +57,8 @@ public class AccountRepository {
             rs.next();
             int id = rs.getInt(1);
 
-            return new Account(id, accounts.getBalance(), accounts.getNickname(), accounts.getFkAccountType(), accounts.getFkUserId());
+            return new Account(id, accounts.getBalance(), accounts.getNickname(), accounts.getFkAccountType(),
+                    accounts.getFkUserId());
         }
     }
 }

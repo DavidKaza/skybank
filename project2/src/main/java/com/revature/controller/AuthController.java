@@ -7,6 +7,8 @@ import com.revature.model.User;
 import com.revature.service.AuthService;
 import io.javalin.Javalin;
 
+import java.sql.SQLException;
+
 import javax.servlet.http.HttpSession;
 
 public class AuthController {
@@ -24,7 +26,7 @@ public class AuthController {
                 session.setAttribute("user", user);
 
                 ctx.json(user);
-            } catch (InvalidLoginException e){
+            } catch (InvalidLoginException e) {
                 ctx.status(400);
                 ctx.result(e.getMessage());
             }
@@ -38,7 +40,7 @@ public class AuthController {
             ctx.result("Goodbye" + " " + user.getFirstName());
         });
 
-        //register
+        // register
         app.post("/register", (ctx) -> {
             User userToAdd = ctx.bodyAsClass(User.class);
             try {
@@ -53,6 +55,24 @@ public class AuthController {
             } catch (SsnMustBeUniqueException e) {
                 ctx.result(e.getMessage());
                 ctx.status(400);
+            }
+        });
+
+        //Edit Profile Info
+        app.patch("/update/{userId}", (ctx) -> {
+            User newInfo = ctx.bodyAsClass(User.class);
+            try {
+                HttpSession httpSession = ctx.req.getSession();
+                User user = (User) httpSession.getAttribute("user");
+
+                int userId = Integer.parseInt(ctx.pathParam("userId"));
+                User updatedInfo = authService.updateInfo(newInfo, userId);
+                
+                httpSession.setAttribute("user", updatedInfo);
+
+                ctx.json(updatedInfo);
+            } catch (SQLException s) {
+                ctx.result(s.getMessage());
             }
         });
     }

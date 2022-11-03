@@ -11,8 +11,8 @@ const StyledForm = styled.form`
   box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
   max-width: 600px;
   margin: 20px auto;
-  background-color: #fff;
-  color: var(--primaryDark);
+  background-color: var(--color2);
+  color: var(--textColor1);
   input,
   select {
     font-size: 1.2rem;
