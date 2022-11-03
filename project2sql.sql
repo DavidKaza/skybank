@@ -155,7 +155,7 @@ end;
 $$;
 
 --Income
-drop procedure if exists income(person varchar(100), amount numeric, acc integer)
+drop procedure if exists income(person varchar(100), amount numeric, acc integer);
 
 create procedure income(person varchar(100), amount numeric, acc integer)
 language plpgsql
@@ -169,7 +169,7 @@ end;
 $$;
 
 --Expense
-drop procedure if exists expenses(person varchar(100), total_amount numeric, acc integer)
+drop procedure if exists expenses(person varchar(100), total_amount numeric, acc integer);
 
 create procedure expenses(person varchar(100), amount numeric, acc integer)
 language plpgsql
@@ -189,7 +189,7 @@ end;
 $$;
 
 --See all income
-drop function if exists allIncome(user_id integer)
+drop function if exists allIncome(user_id integer);
 
 create function allIncome(user_id integer)
 returns table
@@ -209,7 +209,7 @@ end;
 $$;
 
 --See all expenses
-drop function if exists allExpenses(user_id integer)
+drop function if exists allExpenses(user_id integer);
 
 create function allExpenses(user_id integer)
 returns table
@@ -227,6 +227,9 @@ begin
 
 end;
 $$;
+
+-- call income('My Job', 1000, 2);
+-- call expenses('Mcdonalds', 100, 4);
 
 --To see all accounts, their type, and their balances for a customer
 select accounts.balance, account_type.type from accounts join account_type on account_type.id = accounts.fk_account_type join users on users.id = accounts.fk_users_id where users.id = 1;

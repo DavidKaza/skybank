@@ -65,7 +65,6 @@
 //                '}';
 //    }
 //}
-=======
 package com.revature.project2Data.model;
 
 import javax.persistence.*;
