@@ -1,6 +1,7 @@
 package com.revature.service;
 
 import com.revature.exception.AccountDoesntExistException;
+import com.revature.exception.AmountMustBeGreaterThan0Exception;
 import com.revature.exception.TransferingMoneyMustIncludeYouException;
 import com.revature.model.Account;
 import com.revature.model.Transaction;
@@ -13,11 +14,11 @@ import java.util.List;
 
 public class TransactionService {
 
-    //will have to add exceptions if balance is less than 0, or if account doesn't exist
+    // will have to add exceptions if balance is less than 0, or if account doesn't
+    // exist
     private TransactionRepository transactionRepository = new TransactionRepository();
 
-    public void transfer(Transfer t) throws  SQLException {
-
+    public void transfer(Transfer t) throws SQLException {
 
         transactionRepository.transfer(t);
     }
@@ -32,13 +33,21 @@ public class TransactionService {
         return accounts;
     }
 
-    public void getTransfer(Transfer t, int userId) throws TransferingMoneyMustIncludeYouException, SQLException{
+    public void getTransfer(Transfer t, int userId) throws TransferingMoneyMustIncludeYouException, SQLException,
+            AmountMustBeGreaterThan0Exception, AccountDoesntExistException {
 
         ArrayList<Integer> accounts = transactionRepository.getAccounts(userId);
-        if (accounts.contains(t.getSendingAccount())) {
-            transactionRepository.transfer(t);
-        } else if (!accounts.contains(t.getSendingAccount())) {
-            throw new TransferingMoneyMustIncludeYouException("This account doesn't belong to you");
+        if (accounts.contains(t.getReceivingAccount()) && accounts.contains(t.getSendingAccount())) {
+            if (t.getAmount() <= 0) {
+                throw new AmountMustBeGreaterThan0Exception("Transfer amount must be greater than zero");
+            } else if (!accounts.contains(t.getSendingAccount())) {
+                throw new TransferingMoneyMustIncludeYouException("This account doesn't belong to you");
+            } else {
+                transactionRepository.transfer(t);
+            }
+        } else {
+            throw new AccountDoesntExistException("Account doesn't exist!");
         }
+
     }
 }

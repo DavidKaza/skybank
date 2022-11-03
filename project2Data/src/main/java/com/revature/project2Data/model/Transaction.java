@@ -1,7 +1,5 @@
 package com.revature.project2Data.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
@@ -25,7 +23,8 @@ public class Transaction {
     @JoinColumn(name = "to_account_id")
     private Account toAccount;
 
-    public Transaction(){}
+    public Transaction() {
+    }
 
     public Transaction(int id, Timestamp date, int totalAmount, String note) {
 
@@ -85,10 +84,14 @@ public class Transaction {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Transaction that = (Transaction) o;
-        return id == that.id && totalAmount == that.totalAmount && Objects.equals(date, that.date) && Objects.equals(note, that.note) && Objects.equals(fromAccount, that.fromAccount) && Objects.equals(toAccount, that.toAccount);
+        return id == that.id && totalAmount == that.totalAmount && Objects.equals(date, that.date)
+                && Objects.equals(note, that.note) && Objects.equals(fromAccount, that.fromAccount)
+                && Objects.equals(toAccount, that.toAccount);
     }
 
     @Override

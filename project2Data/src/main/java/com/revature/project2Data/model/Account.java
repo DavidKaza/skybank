@@ -1,7 +1,5 @@
 package com.revature.project2Data.model;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -15,13 +13,13 @@ public class Account {
     private float balance;
     private String nickname;
 
-
 //    @ManyToOne
 //    @JoinColumn(name="fk_account_type", nullable = false)
 //    private AccountType accountType;
 
+
     @ManyToOne
-    @JoinColumn(name="fk_user_id", nullable = false)
+    @JoinColumn(name = "fk_user_id", nullable = false)
     private User user;
 
     @OneToOne(mappedBy = "fromAccount")
@@ -30,7 +28,8 @@ public class Account {
     @OneToOne(mappedBy = "toAccount")
     private Transaction toAccount;
 
-    public Account(){}
+    public Account() {
+    }
 
     public Account(int id, float balance, String nickname) {
 
@@ -90,10 +89,16 @@ public class Account {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         Account account = (Account) o;
-        return id == account.id && Float.compare(account.balance, balance) == 0 && Objects.equals(nickname, account.nickname) && Objects.equals(user, account.user) && Objects.equals(fromAccount, account.fromAccount) && Objects.equals(toAccount, account.toAccount);
+        
+        return id == account.id && Float.compare(account.balance, balance) == 0 
+                && Objects.equals(nickname, account.nickname) && Objects.equals(user, account.user) 
+                && Objects.equals(fromAccount, account.fromAccount) && Objects.equals(toAccount, account.toAccount);
+
     }
 
     @Override

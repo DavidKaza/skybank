@@ -34,5 +34,10 @@ public class AuthService {
         return addedUser;
     }
 
+    public User updateInfo(User newInfo, int userId) throws SQLException {
+        User user = userRepo.updateUser(newInfo, userId);
+        return user;
+    }
+
 
 }

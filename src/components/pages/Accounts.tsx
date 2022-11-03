@@ -1,113 +1,123 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { useAppSelector } from '../../shared/hooks';
-import { selectUser } from '../../shared/UserSlicer';
+import { useAppDispatch, useAppSelector } from '../../shared/hooks';
+import { selectUser, setUser } from '../../shared/UserSlicer';
 import MakeAll from '../AllAccounts';
 import getAll from '../AllTransactions';
 
-
 const StyledMain = styled.main`
-h1 {
-  padding: 20px;
-  background-color: var(--primary);
-  color: #fff;
-}
-.table {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  text-align: center;
-  border: 1px solid;
-}
-th {
-  width: 25%;
-}
+  h1 {
+    padding: 20px;
+    background-color: var(--color3);
+    color: var(--color1);
+  }
+  .table {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    text-align: center;
+    border: 1px solid;
+  }
+  th {
+    width: 25%;
+    padding: 10px;
+  }
 
-.columns {
-  background-color: #1b87ed;
-}
+  .columns {
+    background-color: var(--color3);
+    color: var(--textColor3);
+    padding: 10px;
+  }
+  tr {
+    background-color: var(--color1);
+  }
+  tr:nth-child(even) {
+    background-color: var(--color2);
+  }
+  td {
+    padding: 10px;
+  }
+  .name {
+    font-size: 1rem;
+    padding: 10px;
+    font-weight: bold;
+    background-color: var(--color2);
+    color: var(--textColor2);
+    margin: 10px;
+  }
 
+  .balance {
+    font-size: 20px;
+  }
 
-tr:nth-child(even) {
-  background-color: #C0C0C0;
-}
+  .accounts {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
 
-.name {
-  font-size: 30px;
-  font-weight: bold;
-}
-
-.balance {
-  font-size: 20px;
-}
-
-.accounts {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.all {
-  width: 25%;
-	text-align: center; 
-	box-sizing: border-box;
-}
+  .all {
+    width: 25%;
+    text-align: center;
+    box-sizing: border-box;
+  }
 `;
 
 const Accounts = () => {
-  
-  const User = useAppSelector(selectUser);
-  const id = User.id; 
-
-  const [accounts, setAccounts] = useState
-  (<div></div>)
-  const [transactions, setTransactions] = useState(<tbody></tbody>)
+  const [accounts, setAccounts] = useState(<div></div>);
+  const [transactions, setTransactions] = useState(<tbody></tbody>);
 
   useEffect(() => {
-    axios.get(`http://localhost:8080/users/${id}/balance`, { withCredentials: true })
-    .then((response) => {
-      console.log(response)
-      setAccounts(MakeAll(response.data))
-    })
-  }, [])
+    const User = window.localStorage.getItem('user');
+    let user;
+    if (User) {
+      user = JSON.parse(User);
+    }
+    axios
+      .get(`http://localhost:8080/users/${user.id}/balance`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setAccounts(MakeAll(response.data));
+      });
 
-  useEffect(() => {
-    axios.get(`http://localhost:8080/users/${id}/transactions`, { withCredentials: true })
-    .then((response) => {
-      console.log(response)
-      setTransactions(getAll(response.data))
-    })
-  }, [])
-
-
+    axios
+      .get(`http://localhost:8080/users/${user.id}/transactions`, {
+        withCredentials: true,
+      })
+      .then((response) => {
+        setTransactions(getAll(response.data));
+      });
+  }, []);
 
   return (
-  <StyledMain>
-    <div>
-      <h1>Accounts Page</h1>
-    </div>
+    <StyledMain>
+      <div>
+        <h1>Accounts Page</h1>
+      </div>
 
-    {accounts}
+      {accounts}
 
-    <div><h3>Transfers</h3></div>
+      <div>
+        <h3>Transfers</h3>
+      </div>
 
-    <div>
-      <table className='table'>
-        <thead>
-          <tr className='columns'>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Sender/Reciever</th>
-            <th>Message</th>
-          </tr>
-        </thead>
-        {transactions}    
-      </table>
-    </div>
-
-  </StyledMain>
+      <div>
+        <table className='table'>
+          <thead>
+            <tr className='columns'>
+              <th>Date</th>
+              <th>Amount</th>
+              <th>Sender/Reciever</th>
+              <th>Message</th>
+            </tr>
+          </thead>
+          {transactions}
+        </table>
+      </div>
+    </StyledMain>
   );
 };
 

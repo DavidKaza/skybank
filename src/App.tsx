@@ -14,6 +14,7 @@ import SignIn from './components/pages/SignIn';
 import { useEffect } from 'react';
 import { useAppDispatch } from './shared/hooks';
 import { setUser } from './shared/UserSlicer';
+import UpdateProfile from './components/pages/UpdateProfile';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,6 +39,7 @@ function App() {
           <Route path='/help' element={<Help />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signIn' element={<SignIn />} />
+          <Route path='/updateprofile' element={<UpdateProfile />}/>
         </Routes>
         <Footer />
       </BrowserRouter>
