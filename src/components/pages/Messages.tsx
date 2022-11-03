@@ -49,8 +49,10 @@ const Messages = () => {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
         setMessageList(res.data);
+      })
+      .catch((e) => {
+        alert(e.response.data);
       });
   }, []);
 

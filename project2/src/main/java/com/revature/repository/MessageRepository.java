@@ -38,7 +38,7 @@ public class MessageRepository {
 
             ResultSet rs = pstmt.getGeneratedKeys();
             rs.next();
-            int id = rs.getInt(1);
+            int id = rs.getInt("id");
             Timestamp ts = rs.getTimestamp("postedTime");
             String m = rs.getString("message");
             Message mess = new Message(id, userId, ts, m);

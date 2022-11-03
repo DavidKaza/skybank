@@ -22,13 +22,9 @@ public class MessageController {
             try {
                 HttpSession session = ctx.req.getSession(); // the cookie
                 User user = (User) session.getAttribute("user");
-                System.out.println(session.getAttribute("user"));
+
                 if (user != null) {
                     int userId = Integer.parseInt(ctx.pathParam("userId"));
-                    // if (user.getId() == userId) {
-                    System.out.println(userId);
-                    System.out.println("-----------------");
-
                     List<Message> messages = messageService.getMessages(userId);
                     ctx.json(messages);
                 } else {

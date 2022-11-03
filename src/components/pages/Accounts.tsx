@@ -75,13 +75,11 @@ const Accounts = () => {
     if (User) {
       user = JSON.parse(User);
     }
-    console.log(user.id);
     axios
       .get(`http://localhost:8080/users/${user.id}/balance`, {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response);
         setAccounts(MakeAll(response.data));
       });
 
@@ -90,7 +88,6 @@ const Accounts = () => {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response);
         setTransactions(getAll(response.data));
       });
   }, []);
