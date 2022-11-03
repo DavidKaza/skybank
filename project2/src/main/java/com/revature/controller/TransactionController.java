@@ -95,7 +95,7 @@ public class TransactionController {
                    Object[] all = transactionService.getAllIncomeExpense(userId);
                    ctx.json(all);
                 } else {
-                    ctx.result("You are not logged in as the user you are trying to retrieve your transactions from");
+                    ctx.result("You are not logged in as the user you are trying to retrieve your Income and Expenses from");
                     ctx.status(401);
                 }
             } else {
