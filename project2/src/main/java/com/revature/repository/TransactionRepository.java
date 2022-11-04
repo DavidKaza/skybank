@@ -11,16 +11,17 @@ import java.util.List;
 
 public class TransactionRepository {
 
-    public void transfer(Transfer t) throws SQLException {
+    public void transfer(Transfer t, int userId) throws SQLException {
 
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             connectionObj.createStatement();
 
-            CallableStatement transfer = connectionObj.prepareCall("call transfer(?, ?, ?, ?)");
+            CallableStatement transfer = connectionObj.prepareCall("call transfer(?, ?, ?, ?, ?)");
             transfer.setInt(1, t.getAmount());
             transfer.setInt(2, t.getSendingAccount());
             transfer.setInt(3, t.getReceivingAccount());
             transfer.setString(4, t.getMessage());
+            transfer.setInt(5, userId);
             transfer.execute();
             transfer.close();
         }
@@ -141,7 +142,6 @@ public class TransactionRepository {
             ArrayList<IncomeExpense> expenses = new ArrayList<>();
             Object[] all;
             all = new Object[2];
-
 
             ResultSet rs = cstmt.executeQuery();
             while (rs.next()) {

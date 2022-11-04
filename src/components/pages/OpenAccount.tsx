@@ -107,6 +107,9 @@ const OpenAccount = () => {
       .then((resp) => {
         dispatch(setUser(resp.data));
         window.localStorage.setItem('user', JSON.stringify(resp.data));
+      })
+      .catch((e) => {
+        alert(e.response.data);
       });
   }
   function handleAccountInputChange(e: React.ChangeEvent<HTMLInputElement>) {

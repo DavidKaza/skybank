@@ -92,10 +92,11 @@ public class TransactionController {
 
                 int userId = Integer.parseInt(ctx.pathParam("userId"));
                 if (user.getId() == userId) {
-                   Object[] all = transactionService.getAllIncomeExpense(userId);
-                   ctx.json(all);
+                    Object[] all = transactionService.getAllIncomeExpense(userId);
+                    ctx.json(all);
                 } else {
-                    ctx.result("You are not logged in as the user you are trying to retrieve your Income and Expenses from");
+                    ctx.result(
+                            "You are not logged in as the user you are trying to retrieve your Income and Expenses from");
                     ctx.status(401);
                 }
             } else {

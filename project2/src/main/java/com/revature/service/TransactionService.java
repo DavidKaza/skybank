@@ -19,9 +19,9 @@ public class TransactionService {
     // exist
     private TransactionRepository transactionRepository = new TransactionRepository();
 
-    public void transfer(Transfer t) throws SQLException {
+    public void transfer(Transfer t, int userId) throws SQLException {
 
-        transactionRepository.transfer(t);
+        transactionRepository.transfer(t, userId);
     }
 
     public List<Transaction> getAllTransactionsForUser(int userId) throws SQLException {
@@ -44,7 +44,7 @@ public class TransactionService {
             } else if (!accounts.contains(t.getSendingAccount())) {
                 throw new TransferingMoneyMustIncludeYouException("This account doesn't belong to you");
             } else {
-                transactionRepository.transfer(t);
+                transactionRepository.transfer(t, userId);
             }
         } else {
             throw new AccountDoesntExistException("Account doesn't exist!");
