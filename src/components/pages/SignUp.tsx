@@ -49,6 +49,11 @@ const SignUp = () => {
     });
   }
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    alert('Invalid Account Details');
+  }
+
   return (
     <StyledMain>
       <h1>Sign Up for Online Access</h1>
@@ -58,7 +63,7 @@ const SignUp = () => {
           steps. First we'll need to verify your identity. Fill out the form
           below to get started.
         </p>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <div className='accountNumber-group'>
             <label htmlFor='accountNumber'>Account Number</label>
             <p>

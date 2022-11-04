@@ -36,19 +36,10 @@ const Footer = () => {
     <StyledFooter>
       <ul>
         <li>
-          <Link to='/accounts'>Accounts</Link>
-        </li>
-        <li>
           <Link to='/openaccount'>Open New Account</Link>
-        </li>
-        <li>
-          <Link to='/payments'>Payments and Transfers</Link>
         </li>
       </ul>
       <ul>
-        <li>
-          <Link to='/messages'>Messages</Link>
-        </li>
         <li>
           <Link to='/help'>Help</Link>
         </li>
