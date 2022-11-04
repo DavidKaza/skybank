@@ -10,7 +10,7 @@ public class MessageRepository {
     public List<Message> getMessages(int userId) throws SQLException {
         try (Connection connectionObj = ConnectionFactory.createConnection()) {
             List<Message> messages = new ArrayList<>();
-            String sql = "Select * from project2.messages where fk_user_id = ?";
+            String sql = "Select * from project2.messages where fk_user_id = ? order by postedTime desc limit 30";
             PreparedStatement pstmt = connectionObj.prepareStatement(sql);
 
             pstmt.setInt(1, userId);
