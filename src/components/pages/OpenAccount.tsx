@@ -242,7 +242,7 @@ const OpenAccount = () => {
                 value={userData.email}
                 id='email'
                 name='email'
-                type='text'
+                type='email'
                 onChange={handleUserInputChange}
               />
             </div>
