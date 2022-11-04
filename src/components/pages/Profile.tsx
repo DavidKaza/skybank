@@ -21,27 +21,31 @@ const StyledMain = styled.main`
   }
   th {
     width: 25%;
+    padding: 10px;
   }
-.button {
-  background-color: var(--primary);
-border: none;
-width: 200px;
-padding: 5px;
-border-radius: 15px;
-font-size: 1.5rem;
-color: #fff;
-margin: 10px auto;
-display: block;
-&:hover {
-  background-color: var(--primaryMedium);
-}
-text-align: center;
-}
+  td {
+    padding: 10px;
+  }
+  .button {
+    background-color: var(--primary);
+    border: none;
+    width: 200px;
+    padding: 5px;
+    border-radius: 15px;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 10px auto;
+    display: block;
+    &:hover {
+      background-color: var(--primaryMedium);
+    }
+    text-align: center;
+  }
 `;
 
 const Profile = () => {
   const User = useAppSelector(selectUser);
-  
+
   return (
     <StyledMain>
       <div>
@@ -72,9 +76,9 @@ const Profile = () => {
             </tr>
           </tbody>
         </table>
-          <div className='button'>
-            <Link to={'/updateprofile'}>Update Profile</Link>
-            </div>
+        <div className='button'>
+          <Link to={'/updateprofile'}>Update Profile</Link>
+        </div>
       </div>
     </StyledMain>
   );
