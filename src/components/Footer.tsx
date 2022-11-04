@@ -4,20 +4,31 @@ import styled from 'styled-components';
 const StyledFooter = styled.footer`
   padding: 20px;
   position: relative;
-  background-color: var(--primaryMedium);
-  color: #fff;
+  background-color: var(--color2);
+  color: var(--textColor1);
   text-align: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   justify-content: center;
+  transition: all 0.4s;
   ul {
     list-style-type: none;
     text-align: left;
     margin: auto;
-    a {
-      color: #fff;
-      text-decoration: none;
+    color: var(--textColor1);
+    text-decoration: none;
+    li {
+      padding: 10px;
+      a {
+        text-decoration: none;
+      }
     }
+  }
+  div {
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+    grid-column: span 2;
   }
 `;
 const Footer = () => {
@@ -25,13 +36,24 @@ const Footer = () => {
     <StyledFooter>
       <ul>
         <li>
-          <Link to='/openaccount'>Open Account</Link>
+          <Link to='/accounts'>Accounts</Link>
+        </li>
+        <li>
+          <Link to='/openaccount'>Open New Account</Link>
+        </li>
+        <li>
+          <Link to='/payments'>Payments and Transfers</Link>
+        </li>
+      </ul>
+      <ul>
+        <li>
+          <Link to='/messages'>Messages</Link>
         </li>
         <li>
           <Link to='/help'>Help</Link>
         </li>
       </ul>
-      &copy;2020 SkyNet Global inc.
+      <div>&copy;2020 SkyNet Global inc.</div>
     </StyledFooter>
   );
 };

@@ -1,8 +1,7 @@
-import { TransformStreamDefaultController } from 'node:stream/web';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
-  background-color: var(--primary);
+  background-color: var(--color2);
   border: none;
   width: 200px;
   padding: 5px;
@@ -12,14 +11,14 @@ const StyledButton = styled.button`
   margin: 10px auto;
   display: block;
   &:hover {
-    background-color: var(--primaryMedium);
+    background-color: var(--color3);
   }
   > a {
-    color: #fff;
+    color: var(--textColor2);
     text-decoration: none;
     &:hover {
       text-shadow: none;
-      color: #fff;
+      color: var(--textColor1);
     }
   }
   &[disabled] {
