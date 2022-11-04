@@ -6,6 +6,7 @@ import { selectUser, setDefault } from '../shared/UserSlicer';
 import Button from './Button';
 import DayNight from './daynight.svg';
 import { selecDayNightSlice, setMode } from '../shared/ThemeSlicer';
+import { ReactComponent as ProfileIcon } from './profile.svg';
 
 export const StyledHeader = styled.header`
   background-color: var(--color1);
@@ -23,6 +24,12 @@ export const StyledHeader = styled.header`
       a:hover {
         color: var(--textColor1);
       }
+      .profile-icon {
+        display: block;
+        padding: 0 15px;
+        width: 65px;
+        height: 40px;
+      }
       #dayNightSwitcherBtn {
         border: none;
         width: 2rem;
@@ -30,7 +37,6 @@ export const StyledHeader = styled.header`
         border-radius: 50%;
         background-color: transparent;
         overflow: hidden;
-
         img {
           height: 100%;
           width: 100%;
@@ -38,16 +44,68 @@ export const StyledHeader = styled.header`
           object-position: var(--icon-position);
           transition: all 0.5s;
         }
+        @media screen and (max-width: 800px) {
+          width: 2.5rem;
+          height: 2.5rem;
+        }
       }
 
-      div {
+      .group1,
+      .user-menu {
         display: flex;
+        justify-content: space-evenly;
         align-items: center;
         a {
           padding: 10px;
           text-decoration: none;
           color: var(--textColor2);
           transition: color 0.4s;
+        }
+      }
+      .hamburger {
+        background: none;
+        border: none;
+        display: none;
+        overflow: hidden;
+        span {
+          display: block;
+          height: 3px;
+          width: 40px;
+          background-color: var(--textColor1);
+          margin: 10px 0;
+          position: relative;
+          top: 0;
+          left: 0;
+          transition: left 0.3s 0s, top 0.3s 0.15s, transform 0.3s 0s;
+        }
+        @media screen and (max-width: 800px) {
+          display: block;
+          &:hover {
+            span {
+              background-color: var(--textColor2);
+              box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            }
+          }
+        }
+        &.menu-open {
+          span {
+            transition: left 0.3s 0s, top 0.3s 0s, transform 0.3s 0.15s;
+          }
+          span:nth-child(1) {
+            top: 13px;
+            left: 0;
+            transform: rotateZ(45deg);
+          }
+          span:nth-child(2) {
+            top: 0px;
+            left: 120%;
+            transform: rotateZ(45deg);
+          }
+          span:nth-child(3) {
+            top: -13px;
+            left: 0;
+            transform: rotateZ(-45deg);
+          }
         }
       }
       ul {
@@ -60,6 +118,9 @@ export const StyledHeader = styled.header`
             text-decoration: none;
             color: var(--textColor2);
             transition: color 0.4s;
+            @media screen and (max-width: 800px) {
+              font-size: 2rem;
+            }
           }
           button {
             font-size: 1rem;
@@ -67,8 +128,15 @@ export const StyledHeader = styled.header`
             background: transparent;
             color: var(--textColor2);
             transition: color 0.4s;
+            padding: 10px;
+            @media screen and (max-width: 800px) {
+              font-size: 1.6rem;
+            }
           }
         }
+      }
+      @media screen and (max-width: 800px) {
+        font-size: 1.6rem;
       }
     }
     ul.lowerNav {
@@ -85,6 +153,30 @@ export const StyledHeader = styled.header`
           text-decoration: none;
         }
       }
+      @media screen and (max-width: 800px) {
+        max-height: 0;
+        overflow: hidden;
+        padding: 0;
+        flex-direction: column;
+
+        li {
+          width: 100%;
+          text-align: center;
+          a {
+            display: block;
+            padding: 20px;
+            font-size: 1.6rem;
+            &:hover {
+              background-color: var(--textColor3);
+              color: var(--color3);
+              box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            }
+          }
+        }
+        &.menu-open {
+          max-height: 600px;
+        }
+      }
     }
   }
 `;
@@ -93,6 +185,8 @@ const Header: React.FC = () => {
   const user = useAppSelector(selectUser);
   const theme = useAppSelector(selecDayNightSlice);
   const [themeState, setThemeState] = React.useState(theme);
+  const [menuOpen, setMenuOpen] = React.useState(false);
+  const [iconColor, setIconColor] = React.useState('#006EA5');
 
   const dispatch = useAppDispatch();
   let navigateHome = useNavigate();
@@ -110,6 +204,7 @@ const Header: React.FC = () => {
       document.documentElement.style.setProperty('--textColor2', '#006EA5');
       document.documentElement.style.setProperty('--textcolor3', '#edf6ff');
       document.documentElement.style.setProperty('--icon-position', 'right');
+      setIconColor('#006EA5');
     } else {
       document.documentElement.style.setProperty('--color1', '#1e2427');
       document.documentElement.style.setProperty('--color2', '#623d26');
@@ -118,14 +213,19 @@ const Header: React.FC = () => {
       document.documentElement.style.setProperty('--textColor2', '#e1dd74');
       document.documentElement.style.setProperty('--textcolor3', '#000000');
       document.documentElement.style.setProperty('--icon-position', 'left');
+      setIconColor('#e1dd74');
     }
+  };
+
+  const menuToggle = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
     <StyledHeader>
       <nav>
         <div className='upperNav'>
-          <div>
+          <div className='group1'>
             <div className='Logo'>
               <Link to='/'>SkyNet</Link>
             </div>
@@ -133,12 +233,25 @@ const Header: React.FC = () => {
               <img src={DayNight} alt='day and night mode switcher' />
             </button>
           </div>
-
+          {user.id ? (
+            <button
+              onClick={menuToggle}
+              className={menuOpen ? 'hamburger menu-open' : 'hamburger'}
+            >
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+          ) : (
+            ''
+          )}
           <ul>
             {user.id ? (
               <div className='user-menu'>
-                <li>
-                  <Link to='profile'>Profile</Link>
+                <li className='profile-icon'>
+                  <Link to='profile'>
+                    <ProfileIcon stroke={iconColor} />
+                  </Link>
                 </li>
                 <li>
                   <Button
@@ -148,7 +261,7 @@ const Header: React.FC = () => {
                       navigateHome('/');
                     }}
                   >
-                    Sign Out
+                    Logout
                   </Button>
                 </li>
               </div>
@@ -162,7 +275,7 @@ const Header: React.FC = () => {
           </ul>
         </div>
         {user.id ? (
-          <ul className='lowerNav'>
+          <ul className={menuOpen ? 'lowerNav menu-open' : 'lowerNav'}>
             <li>
               <Link to='/accounts'>Accounts</Link>
             </li>

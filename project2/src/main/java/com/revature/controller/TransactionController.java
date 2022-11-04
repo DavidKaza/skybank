@@ -57,6 +57,9 @@ public class TransactionController {
             } catch (AccountDoesntExistException a) {
                 ctx.result(a.getMessage());
                 ctx.status(400);
+            } catch (SQLException e) {
+                ctx.result(e.getMessage());
+                ctx.status(400);
             }
         });
 

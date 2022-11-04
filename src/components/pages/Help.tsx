@@ -47,6 +47,12 @@ const StyledMain = styled.main`
         }
       }
     }
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
   }
   .faq-container {
     display: grid;
@@ -60,6 +66,9 @@ const StyledMain = styled.main`
     .faq {
       padding: 30px;
       border-bottom: 2px solid #ddd;
+    }
+    @media screen and (max-width: 800px) {
+      grid-template-columns: 1fr;
     }
   }
 `;
