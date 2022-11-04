@@ -114,7 +114,10 @@ begin
 end;
 $$;
 
+<<<<<<< HEAD
+=======
 --See all transactions for a user
+>>>>>>> bc5736c0db31e92eb9d01aa31bb289220420aff3
 drop function if exists allTransactions(user_id integer);
 
 create function allTransactions(user_id integer)
