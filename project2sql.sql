@@ -108,9 +108,9 @@ foreign key (fk_account_id) references project2.accounts(id)
 ------------------Functions, Queries, and Procedures-------------------
 --To transfer money between accounts
 --create or replace
-drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500));
+drop procedure if exists transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500), sending_user integer);
 
-create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500))
+create procedure transfer(amount numeric, sending_acc integer, receiving_acc integer, message varchar(500), sending_user integer)
 language plpgsql
 as $$
 declare pre_transaction numeric;
@@ -128,7 +128,7 @@ begin
 			update accounts set balance = balance - amount where id = sending_acc;
 			update accounts set balance = balance + amount where id = receiving_acc;
 			insert into transactions (date, from_account_id, to_account_id, total_amount, note) values (current_timestamp, sending_acc, receiving_acc, amount, message);
-			insert into messages (fk_user_id, postedTime, message) values (sending_acc, current_timestamp, messageString);
+			insert into messages (fk_user_id, postedTime, message) values (sending_user, current_timestamp, messageString);
 	end if;
 	commit;
 end;
