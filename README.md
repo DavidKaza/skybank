@@ -7,6 +7,9 @@ This online banking application allows you to perform features associated with o
 ### Back-end: Java
 
 The Maven Java project is located in the project2 file with all required dependencies found within the pom.xml file within the folder
+
+* To connect to your databse using the JDBC implemention
+  * Set your databse url, username, and password to your local database
   
 * Starting implementation of the Spring framework can be found within the project2data folder
   * In the application.yml file set the datasources
