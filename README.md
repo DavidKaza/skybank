@@ -24,6 +24,8 @@ Postgres database was utilized for this project with the script containing all t
 ### Front-end: React TS
 
 The front end consists of a React TypeScript application and is found in src folder of the project.
+
 Run ```npm install``` first to get all the neccessary libraries and modules
+
 Then to run the React application use ```npm start```
 
